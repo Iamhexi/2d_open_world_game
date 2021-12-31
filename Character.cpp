@@ -3,9 +3,9 @@
 
 Character::Character(
     sf::RenderWindow& window,
-    sf::Texture texture,
+    sf::Texture& texture,
     sf::Vector2f startingPosition
-): window(window)
+): window(window), texture(texture)
 {
     sprite.setTexture(texture);
     sprite.setPosition(startingPosition);

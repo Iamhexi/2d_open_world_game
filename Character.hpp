@@ -4,12 +4,12 @@ class Character
 {
 private:
     sf::RenderWindow& window;
-    sf::Texture texture;
+    sf::Texture& texture;
     sf::Sprite sprite;
     float speed = 3.5f;
     bool canMove = true;
 public:
-    Character(sf::RenderWindow& window, sf::Texture texture, sf::Vector2f startingPosition);
+    Character(sf::RenderWindow& window, sf::Texture& texture, sf::Vector2f startingPosition);
     void handleMovement();
     void draw();
 private:

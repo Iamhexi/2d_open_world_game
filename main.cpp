@@ -1,19 +1,41 @@
 #include "Character.hpp"
+#include "ResourceManager.hpp"
 #include <iostream>
+
+// TODO: Dialogue class
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
+    ResourceManager<sf::Texture> texturesManager;
+    ResourceManager<sf::Font> fontsManager;
 
-    sf::Texture heroTexture;
-    if (!heroTexture.loadFromFile("resources/textures/hero.png"))
-        std::cout << "Loading the hero texture failed!\n";
+    sf::ContextSettings settings;
+    settings.depthBits = 24;
+    settings.antialiasingLevel = 16;
 
-    sf::Sprite sprite;
-    sprite.setTexture(heroTexture);
-    sprite.setPosition(0, 200);
 
-    Character hero(window, heroTexture, sf::Vector2f(500, 500));
+    sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!", sf::Style::Default, settings);
+    window.setFramerateLimit(60);
+    window.setVerticalSyncEnabled(true);
+
+    {
+        sf::Texture heroTexture;
+        if (!heroTexture.loadFromFile("resources/textures/hero.png"))
+            std::cout << "Loading the hero texture failed!\n";
+
+        texturesManager.set("hero", heroTexture);
+    }
+
+    {
+        sf::Font marrada;
+        if (!marrada.loadFromFile("resources/fonts/Marrada.ttf"))
+            std::cout << "Loading the Marrada font failed!\n";
+
+        fontsManager.set(std::string("marrada"), marrada);
+    }
+
+
+    Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500));
 
     while (window.isOpen())
     {
@@ -29,7 +51,6 @@ int main()
 
         window.clear();
 
-        window.draw(sprite);
         hero.draw();
 
         window.display();
