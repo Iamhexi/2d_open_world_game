@@ -7,9 +7,8 @@ void Dialogue::start()
     if (speakers.size() == 0)
             throw std::string("The dialogue with no speakers cannot be started!");
 
+    currentSpeaker = speakers.begin();
     progress = 0;
-    currentSpeakerIndex = 0;
-    currentSpeaker = std::make_unique<Speaker> ( speakers.at(0) );
 }
 
 void Dialogue::handle()
@@ -19,13 +18,16 @@ void Dialogue::handle()
         toggleSpeaker();
         loadCurrentSpeakerAvatar();
         loadCurrentSpeakerDialogueLine();
+
+        if ( currentSpeaker == speakers.end() )
+            progress++;
     }
 
 }
 
 void Dialogue::loadCurrentSpeakerDialogueLine()
 {
-    text = currentSpeaker->getDialogueLines().at(progress);
+    text.setString( currentSpeaker->getDialogueLines().at(progress) );
 }
 
 void Dialogue::loadCurrentSpeakerAvatar()
@@ -40,15 +42,13 @@ void Dialogue::createSpeaker(Speaker speaker)
 
 void Dialogue::toggleSpeaker()
 {
-    if (currentSpeakerIndex >= speakers.size())
-        currentSpeakerIndex++;
+    if ( currentSpeaker != speakers.end() )
+        currentSpeaker++;
     else
-        currentSpeakerIndex = 0;
-
-    currentSpeaker = std::make_unique<Speaker>( speakers.at(currentSpeakerIndex) );
+        currentSpeaker = speakers.begin();
 }
 
-void Dialogue::render(sf::RenderWindow& window) const;
+void Dialogue::render(sf::RenderWindow& window) const
 {
     window.draw(background);
     window.draw(speakerAvatar);

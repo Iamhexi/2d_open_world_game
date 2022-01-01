@@ -8,10 +8,9 @@ private:
     sf::Text text;
 
     unsigned short progress;
-    unsigned short currentSpeakerIndex;
 
+    std::vector<Speaker>::iterator currentSpeaker;
     std::vector<Speaker> speakers;
-    std::unique_ptr<Speaker> currentSpeaker;
 
 public:
     void start();
