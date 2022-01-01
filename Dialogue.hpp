@@ -3,6 +3,7 @@
 class Dialogue
 {
 private:
+    sf::RenderWindow& window;
     sf::RectangleShape background;
     sf::Sprite speakerAvatar;
     sf::Text text;
@@ -13,13 +14,15 @@ private:
     std::vector<Speaker> speakers;
 
 public:
+    Dialogue(sf::RenderWindow& window);
     void start();
     void handle();
-    void createSpeaker(Speaker speaker);
-    void render(sf::RenderWindow& window) const;
+    void addSpeaker(Speaker speaker);
+    void render() const;
 
 private:
     void toggleSpeaker();
     void loadCurrentSpeakerAvatar();
     void loadCurrentSpeakerDialogueLine();
+    void setUpGrahpics();
 };

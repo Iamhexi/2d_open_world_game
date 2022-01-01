@@ -22,7 +22,7 @@ void Character::handleMovement()
     }
 }
 
-void Character::draw()
+void Character::render()
 {
     window.draw(sprite);
 }

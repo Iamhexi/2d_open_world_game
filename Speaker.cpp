@@ -1,22 +1,22 @@
 #include "Speaker.hpp"
 
-Speaker::Speaker(std::string& name, sf::Texture& texture)
+Speaker::Speaker(std::string name, sf::Texture& texture)
     : name(name), texture(texture)
 {
 
 }
 
-void Speaker::rename(const std::string& name)
+void Speaker::rename(const std::string name)
 {
     this->name = name;
 }
 
-void Speaker::addDialogueLine(std::string& dialogueLine)
+void Speaker::addDialogueLine(const std::string dialogueLine)
 {
     texts.push_back(dialogueLine);
 }
 
-sf::Texture& Speaker::getTexture()
+sf::Texture& Speaker::getTexture() const
 {
     return texture;
 }

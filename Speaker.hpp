@@ -14,12 +14,12 @@ private:
     sf::Sprite sprite;
 
 public:
-    Speaker(std::string& name, sf::Texture& texture);
+    Speaker(std::string name, sf::Texture& texture);
 
-    void addDialogueLine(std::string& dialogueLine);
-    void rename(const std::string& name);
+    void addDialogueLine(const std::string dialogueLine);
+    void rename(const std::string name);
 
-    sf::Texture& getTexture();
+    sf::Texture& getTexture() const;
     std::vector<std::string>& getDialogueLines();
 private:
 

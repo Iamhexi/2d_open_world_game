@@ -11,7 +11,7 @@ private:
 public:
     Character(sf::RenderWindow& window, sf::Texture& texture, sf::Vector2f startingPosition);
     void handleMovement();
-    void draw();
+    void render();
 private:
     void moveUpIfPossible();
     void moveDownIfPossible();

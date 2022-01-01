@@ -1,8 +1,7 @@
 #include "Character.hpp"
 #include "ResourceManager.hpp"
+#include "Dialogue.hpp"
 #include <iostream>
-
-// TODO: Dialogue class
 
 int main()
 {
@@ -13,10 +12,10 @@ int main()
     settings.depthBits = 24;
     settings.antialiasingLevel = 16;
 
-
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!", sf::Style::Default, settings);
     window.setFramerateLimit(60);
     window.setVerticalSyncEnabled(true);
+
 
     {
         sf::Texture heroTexture;
@@ -34,6 +33,13 @@ int main()
         fontsManager.set(std::string("marrada"), marrada);
     }
 
+    std::string name = "Igor";
+    Speaker igor( name, texturesManager.get("hero") );
+    igor.addDialogueLine("Hey, how are you?");
+
+    Dialogue dialogue(window);
+    dialogue.addSpeaker(igor);
+    dialogue.start();
 
     Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500));
 
@@ -48,10 +54,12 @@ int main()
 
 
         hero.handleMovement();
+        dialogue.handle();
 
         window.clear();
 
-        hero.draw();
+        hero.render();
+        dialogue.render();
 
         window.display();
     }
