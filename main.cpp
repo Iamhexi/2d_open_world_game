@@ -3,8 +3,15 @@
 #include "Dialogue.hpp"
 #include <iostream>
 
+#include "TestTools.cpp"
+
 int main()
 {
+    Tests::TEST("testingYourDick");
+    Tests::ASSERT(0);
+
+    Tests::runSummary();
+
     ResourceManager<sf::Texture> texturesManager;
     ResourceManager<sf::Font> fontsManager;
 

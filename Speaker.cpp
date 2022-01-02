@@ -6,6 +6,11 @@ Speaker::Speaker(std::string name, sf::Texture& texture)
 
 }
 
+std::string& Speaker::getName()
+{
+    return name;
+}
+
 void Speaker::rename(const std::string name)
 {
     this->name = name;

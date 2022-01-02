@@ -32,7 +32,7 @@ void Dialogue::handle()
 
 void Dialogue::loadCurrentSpeakerDialogueLine()
 {
-    text.setString( currentSpeaker->getDialogueLines().at(progress) );
+    text.setString( currentSpeaker->getName() + ": " + currentSpeaker->getDialogueLines().at(progress) );
 }
 
 void Dialogue::loadCurrentSpeakerAvatar()
