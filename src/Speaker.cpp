@@ -1,4 +1,4 @@
-#include "Speaker.hpp"
+#include "../headers/Speaker.hpp"
 
 Speaker::Speaker(std::string name, sf::Texture& texture)
     : name(name), texture(texture)

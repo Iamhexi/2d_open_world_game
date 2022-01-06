@@ -34,12 +34,18 @@ namespace Tests {
             testFailed();
     }
 
+    void ASSERT_EQUAL(auto phrase1, auto phrase2)
+    {
+        if (phrase1 != phrase2)
+            testFailed();
+    }
+
     void runSummary()
     {
         if (failedTests > 0)
             std::cout << "\033[0;31m" << failedTests << " of " << totalTests << " tests failed!" << "\033[0m\n";
         else
-            std::cout << "\033[0;32m" << "All " << totalTests << " passed." << "\033[0m\n";
+            std::cout << "\033[0;32m" << "All " << totalTests << " tests passed." << "\033[0m\n";
     }
 };
 

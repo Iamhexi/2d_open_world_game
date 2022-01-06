@@ -1,5 +1,4 @@
-#include "Dialogue.hpp"
-#include <iostream>
+#include "../headers/Dialogue.hpp"
 
 Dialogue::Dialogue(sf::RenderWindow& window, sf::Font& font)
     : window(window)

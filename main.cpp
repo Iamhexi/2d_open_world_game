@@ -3,15 +3,8 @@
 #include "Dialogue.hpp"
 #include <iostream>
 
-#include "TestTools.cpp"
-
 int main()
 {
-    Tests::TEST("testIfZeroIsTrue");
-    Tests::ASSERT(0);
-
-    Tests::runSummary();
-
     ResourceManager<sf::Texture> texturesManager;
     ResourceManager<sf::Font> fontsManager;
 
