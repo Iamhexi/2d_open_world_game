@@ -1,9 +1,16 @@
 #include "Dialogue.hpp"
+#include <iostream>
 
-Dialogue::Dialogue(sf::RenderWindow& window)
+Dialogue::Dialogue(sf::RenderWindow& window, sf::Font& font)
     : window(window)
 {
+    finished = false;
+    progress = 0;
 
+    text.setFont(font);
+    text.setString("");
+    text.setCharacterSize(30);
+    text.setFillColor( sf::Color(0, 0, 0) );
 }
 
 void Dialogue::start()
@@ -11,33 +18,34 @@ void Dialogue::start()
     if (speakers.size() == 0)
             throw std::string("The dialogue with no speakers cannot be started!");
 
+    currentSpeakerId = 0;
     setUpGrahpics();
-    currentSpeaker = speakers.begin();
     progress = 0;
+    finished = false;
 }
 
 void Dialogue::handle()
 {
+    if (finished)
+        return;
+
     if (sf::Keyboard::isKeyPressed( sf::Keyboard::Enter ) )
     {
-        toggleSpeaker();
         loadCurrentSpeakerAvatar();
         loadCurrentSpeakerDialogueLine();
-
-        if ( currentSpeaker == speakers.end() )
-            progress++;
+        toggleSpeaker();
     }
 
 }
 
 void Dialogue::loadCurrentSpeakerDialogueLine()
 {
-    text.setString( currentSpeaker->getName() + ": " + currentSpeaker->getDialogueLines().at(progress) );
+    text.setString( speakers.at(currentSpeakerId).getDialogueLines().at(progress) );
 }
 
 void Dialogue::loadCurrentSpeakerAvatar()
 {
-    speakerAvatar.setTexture( currentSpeaker->getTexture() );
+    speakerAvatar.setTexture( speakers.at(currentSpeakerId).getTexture() );
 }
 
 void Dialogue::addSpeaker(Speaker speaker)
@@ -47,10 +55,20 @@ void Dialogue::addSpeaker(Speaker speaker)
 
 void Dialogue::toggleSpeaker()
 {
-    if ( currentSpeaker != speakers.end() )
-        currentSpeaker++;
+    if ( currentSpeakerId < speakers.size() - 1 )
+    {
+        currentSpeakerId++;
+    }
     else
-        currentSpeaker = speakers.begin();
+    {
+        currentSpeakerId = 0;
+        progress++;
+    }
+
+    if ( progress >= speakers.at(currentSpeakerId).getDialogueLines().size() )
+        finished = true;
+
+    // TODO: after altering a speaker, pause for exactly one second, not to let the user skip dialogue lines needlessly
 }
 
 void Dialogue::setUpGrahpics()
@@ -61,13 +79,15 @@ void Dialogue::setUpGrahpics()
     background.setOutlineThickness(4);
     background.setPosition( sf::Vector2f( 0, 3.0f * window.getSize().y/4 ) );
 
-    sf::Sprite speakerAvatar;
-    sf::Text text;
+    // TODO: set up a speaker's avatar and dialogue the line position
 }
 
 void Dialogue::render() const
 {
-    window.draw(background);
-    window.draw(speakerAvatar);
-    window.draw(text);
+    if (!finished)
+    {
+        window.draw(background);
+        window.draw(speakerAvatar);
+        window.draw(text);
+    }
 }

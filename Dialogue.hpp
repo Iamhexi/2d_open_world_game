@@ -1,4 +1,5 @@
 #include "Speaker.hpp"
+#include <vector>
 
 class Dialogue
 {
@@ -9,12 +10,13 @@ private:
     sf::Text text;
 
     unsigned short progress;
+    bool finished;
 
-    std::vector<Speaker>::iterator currentSpeaker;
+    unsigned short currentSpeakerId;
     std::vector<Speaker> speakers;
 
 public:
-    Dialogue(sf::RenderWindow& window);
+    Dialogue(sf::RenderWindow& window, sf::Font& font);
     void start();
     void handle();
     void addSpeaker(Speaker speaker);
@@ -25,4 +27,5 @@ private:
     void loadCurrentSpeakerAvatar();
     void loadCurrentSpeakerDialogueLine();
     void setUpGrahpics();
+    void removeSaidDialogueLines();
 };

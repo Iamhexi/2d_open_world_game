@@ -7,7 +7,7 @@
 
 int main()
 {
-    Tests::TEST("testingYourDick");
+    Tests::TEST("testIfZeroIsTrue");
     Tests::ASSERT(0);
 
     Tests::runSummary();
@@ -43,9 +43,16 @@ int main()
     std::string name = "Igor";
     Speaker igor( name, texturesManager.get("hero") );
     igor.addDialogueLine("Hey, how are you?");
+    igor.addDialogueLine("What are you doing>");
 
-    Dialogue dialogue(window);
+    std::string name2 = "Igor2";
+    Speaker igor2( name2, texturesManager.get("hero") );
+    igor2.addDialogueLine("DUPA DUPA DUPA");
+    igor2.addDialogueLine("LA LA LA DUPA DUPA");
+
+    Dialogue dialogue(window, fontsManager.get("marrada"));
     dialogue.addSpeaker(igor);
+    dialogue.addSpeaker(igor2);
     dialogue.start();
 
     Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500));

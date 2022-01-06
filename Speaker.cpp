@@ -3,17 +3,12 @@
 Speaker::Speaker(std::string name, sf::Texture& texture)
     : name(name), texture(texture)
 {
-
+    this->name = name;
 }
 
-std::string& Speaker::getName()
+std::string Speaker::getName() const
 {
     return name;
-}
-
-void Speaker::rename(const std::string name)
-{
-    this->name = name;
 }
 
 void Speaker::addDialogueLine(const std::string dialogueLine)
