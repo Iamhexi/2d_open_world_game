@@ -1,4 +1,4 @@
-#include "../headers/Dialogue.hpp"
+#include "../include/Dialogue.hpp"
 
 Dialogue::Dialogue(sf::RenderWindow& window, sf::Font& font)
     : window(window)
@@ -39,7 +39,7 @@ void Dialogue::handle()
 
 void Dialogue::loadCurrentSpeakerDialogueLine()
 {
-    text.setString( speakers.at(currentSpeakerId).getDialogueLines().at(progress) );
+    text.setString( speakers.at(currentSpeakerId).getDialogueLine() );
 }
 
 void Dialogue::loadCurrentSpeakerAvatar()
@@ -52,6 +52,12 @@ void Dialogue::addSpeaker(Speaker speaker)
     speakers.push_back(speaker);
 }
 
+void Dialogue::nextDialogueLine()
+{
+    for (Speaker& speaker: speakers)
+        speaker.nextLine();
+}
+
 void Dialogue::toggleSpeaker()
 {
     if ( currentSpeakerId < speakers.size() - 1 )
@@ -62,9 +68,10 @@ void Dialogue::toggleSpeaker()
     {
         currentSpeakerId = 0;
         progress++;
+        nextDialogueLine();
     }
 
-    if ( progress >= speakers.at(currentSpeakerId).getDialogueLines().size() )
+    if ( progress >= speakers.at(currentSpeakerId).getNumberOfDialogueLines() )
         finished = true;
 
     // TODO: after altering a speaker, pause for exactly one second, not to let the user skip dialogue lines needlessly

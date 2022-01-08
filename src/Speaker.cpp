@@ -1,9 +1,10 @@
-#include "../headers/Speaker.hpp"
+#include "../include/Speaker.hpp"
 
 Speaker::Speaker(std::string name, sf::Texture& texture)
     : name(name), texture(texture)
 {
     this->name = name;
+    currentLine = 0;
 }
 
 std::string Speaker::getName() const
@@ -21,7 +22,20 @@ sf::Texture& Speaker::getTexture() const
     return texture;
 }
 
-std::vector<std::string>& Speaker::getDialogueLines()
+void Speaker::nextLine()
 {
-    return texts;
+    if (currentLine < texts.size() - 1)
+        currentLine++;
+    else
+        currentLine = 0;
+}
+
+std::size_t Speaker::getNumberOfDialogueLines()
+{
+    return texts.size();
+}
+
+std::string& Speaker::getDialogueLine()
+{
+    return texts.at(currentLine);
 }

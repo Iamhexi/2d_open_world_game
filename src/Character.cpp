@@ -1,4 +1,4 @@
-#include "../headers/Character.hpp"
+#include "../include/Character.hpp"
 
 
 Character::Character(
@@ -22,7 +22,7 @@ void Character::handleMovement()
     }
 }
 
-void Character::render()
+void Character::render() const
 {
     window.draw(sprite);
 }

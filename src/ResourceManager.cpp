@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "../headers/ResourceManager.hpp"
+#include "../include/ResourceManager.hpp"
 
 template<class T>
 T& ResourceManager<T>::get(std::string name)

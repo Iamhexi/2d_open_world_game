@@ -1,6 +1,7 @@
-#include "Character.hpp"
-#include "ResourceManager.hpp"
-#include "Dialogue.hpp"
+#include "include/Character.hpp"
+#include "include/ResourceManager.hpp"
+#include "include/Dialogue.hpp"
+#include "include/Inventory.hpp"
 #include <iostream>
 
 int main()
@@ -19,7 +20,7 @@ int main()
 
     {
         sf::Texture heroTexture;
-        if (!heroTexture.loadFromFile("resources/textures/hero.png"))
+        if (!heroTexture.loadFromFile("../resources/textures/hero.png"))
             std::cout << "Loading the hero texture failed!\n";
 
         texturesManager.set("hero", heroTexture);
@@ -27,7 +28,7 @@ int main()
 
     {
         sf::Font marrada;
-        if (!marrada.loadFromFile("resources/fonts/Marrada.ttf"))
+        if (!marrada.loadFromFile("../resources/fonts/Marrada.ttf"))
             std::cout << "Loading the Marrada font failed!\n";
 
         fontsManager.set(std::string("marrada"), marrada);
