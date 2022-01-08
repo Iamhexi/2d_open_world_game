@@ -1,5 +1,5 @@
-#include "_TestTools.cpp"
-#include "../headers/Speaker.hpp"
+#include "../lib/TestTools.cpp"
+#include "../include/Speaker.hpp"
 
 void addDialogueLineTest()
 {
@@ -11,5 +11,5 @@ void addDialogueLineTest()
 
     speaker.addDialogueLine(line);
 
-    Tests::ASSERT_EQUAL( speaker.getDialogueLines().at(0), line );
+    Tests::ASSERT_EQUAL( speaker.getDialogueLine(), line );
 }
