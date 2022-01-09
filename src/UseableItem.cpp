@@ -1,6 +1,12 @@
 #include "../include/UseableItem.hpp"
 #include <iostream>
 
+UseableItem::UseableItem(sf::Texture& texture)
+    : Item(texture)
+{
+
+}
+
 void UseableItem::setAction(std::function<void()>& function)
 {
     this->action = function;

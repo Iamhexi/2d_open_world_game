@@ -4,9 +4,8 @@
 Inventory::Inventory(sf::RenderWindow& window)
     : window(window)
 {
-   // items = std::fill(nullptr);
-    //firstEmptyInventorySlotIndex = 0;
-   // currentItemIndex = 0;
+    items.reserve(Inventory::inventorySize);
+    currentItemIndex = 0;
 }
 
 
@@ -27,11 +26,11 @@ bool Inventory::removeItem(unsigned int id)
 
 Item& Inventory::getCurrentItem()
 {
-    try {
-        return items.at(currentItemIndex);
-    } catch (std::out_of_range e){
-        std::cout << e.what() << ": The inner inventory's indicator points outside of the inventory. Any returned reference is invalid.\n";
-    }
+    // try {
+        // return this->items.at(currentItemIndex);
+    // } catch (std::out_of_range e){
+        // std::cout << e.what() << ": The inner inventory's indicator points outside of the inventory. Any returned reference is invalid.\n";
+    // }
 }
 
 
@@ -53,7 +52,9 @@ void Inventory::prev()
 
 void Inventory::render() const
 {
-
+    window.draw(sprite);
+    for (Item item: items)
+        item.render(window);
 }
 
 unsigned int Inventory::findFirstEmptySlot() const
@@ -67,3 +68,4 @@ unsigned int Inventory::findFirstEmptySlot() const
     }
     */
 }
+//

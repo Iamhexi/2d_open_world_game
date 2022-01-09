@@ -1,21 +1,28 @@
 #include <SFML/Graphics.hpp>
 #include <string>
-#include <memory>
+
+#ifndef ITEM_HPP
+#define ITEM_HPP
 
 class Item
 {
+public:
+    unsigned int getId() const;
+    void render(sf::RenderWindow& window);
+
+protected:
+    Item(sf::Texture& texture);
+    void assignId();
+
 protected:
     unsigned int id;
-    std::unique_ptr<sf::Texture> texture;
+    sf::Texture& texture;
     sf::Sprite sprite;
     std::string name;
 public:
+
     static unsigned int uniqueId;
 
-public:
-    Item();
-    unsigned int getId() const;
-
-protected:
-    void assignId();
 };
+
+#endif

@@ -7,12 +7,18 @@ void Item::assignId()
     this->id = Item::uniqueId++;
 }
 
-Item::Item()
+Item::Item(sf::Texture& texture)
+    : texture(texture)
 {
-    id = 0;
+
 }
 
 unsigned int Item::getId() const
 {
     return id;
+}
+
+void Item::render(sf::RenderWindow& window)
+{
+    window.draw(sprite);
 }

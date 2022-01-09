@@ -1,20 +1,21 @@
 #include "Item.hpp"
-#include <array>
 
+
+// ok
+#include <array>
+#include <vector>
 
 class Inventory
 {
 private:
     // TODO: divide into two: graphics and logic of the Inventory
-
-    // TODO: rethink storing items
     sf::RenderWindow& window;
     sf::Sprite sprite;
 
     static constexpr unsigned int EMPTY_SLOT_ID = 0;
     static constexpr std::size_t inventorySize = 50;
-    std::array<Item, inventorySize> items;
 
+    std::vector<Item> items;
     unsigned int currentItemIndex;
 
 public:

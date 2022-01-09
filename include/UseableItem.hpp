@@ -3,9 +3,11 @@
 
 class UseableItem: public Item
 {
-protected:
-    std::function<void()> action;
 public:
+    UseableItem(sf::Texture& texture);
     void setAction(std::function<void()>& function);
     void use();
+    
+protected:
+    std::function<void()> action;
 };
