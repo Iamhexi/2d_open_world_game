@@ -40,6 +40,12 @@ namespace Tests {
             testFailed();
     }
 
+    void ASSERT_NOT_EQUAL(auto phrase1, auto phrase2)
+    {
+        if (phrase1 == phrase2)
+            testFailed();
+    }
+
     void runSummary()
     {
         if (failedTests > 0)
