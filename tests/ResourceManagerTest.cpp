@@ -3,7 +3,7 @@
 
 using namespace Tests;
 
-void gettingNotExistingResourceDoesNotProduceExceptionTest()
+void gettingNotExistingResourceDoesNotEmitExceptionTest()
 {
 
     TEST(__FUNCTION__);
@@ -16,6 +16,25 @@ void gettingNotExistingResourceDoesNotProduceExceptionTest()
     } catch (...){
         exceptionThrown = true;
     }
-        ASSERT_FALSE(exceptionThrown);
 
+    ASSERT_FALSE(exceptionThrown);
+
+}
+
+void settingAlreadyExistingResourceDoesNotEmitExceptionTest()
+{
+    TEST(__FUNCTION__);
+
+    bool exceptionThrown = false;
+    ResourceManager<sf::Texture> texturesManager;
+    sf::Texture texture;
+    texturesManager.set("t", texture);
+
+    try {
+        texturesManager.set("t", texture);
+    } catch (...){
+        exceptionThrown = true;
+    }
+
+    ASSERT_FALSE(exceptionThrown);
 }
