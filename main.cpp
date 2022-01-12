@@ -52,6 +52,7 @@ int main()
     Dialogue dialogue(window, fontsManager.get("marrada"));
     dialogue.addSpeaker(igor);
     dialogue.addSpeaker(igor2);
+    dialogue.addSpeaker(krzychu);
     dialogue.start();
 
     Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500));
