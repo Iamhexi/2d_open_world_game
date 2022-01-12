@@ -44,9 +44,15 @@ int main()
     igor2.addDialogueLine("DUPA DUPA DUPA");
     igor2.addDialogueLine("LA LA LA DUPA DUPA");
 
+    std::string guest1 = "Nos z sąsiedztwa";
+    Speaker krzychu( guest1, texturesManager.get("hero") );
+    krzychu.addDialogueLine("JA CI DAM DUPE DUPE");
+    krzychu.addDialogueLine("LAAA KIEDY MNIE WYPUSCISZ Z PIWNICY??");
+
     Dialogue dialogue(window, fontsManager.get("marrada"));
     dialogue.addSpeaker(igor);
     dialogue.addSpeaker(igor2);
+    dialogue.addSpeaker(krzychu);
     dialogue.start();
 
     Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500));
