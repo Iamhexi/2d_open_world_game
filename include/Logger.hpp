@@ -1,4 +1,4 @@
-#include <fstream>
+ #include <fstream>
 #include <iostream>
 #include <chrono>
 #include <iomanip>
@@ -17,7 +17,6 @@ enum LogLevel
 
 class Logger {
 public:
-    static Logger* logger;
     static Logger& getInstance()
     {
         static Logger* logger = new Logger();
@@ -31,7 +30,7 @@ public:
   void saveEventLog(LogLevel level = LogLevel::Debug, std::string filename = "");
 
 private:
-  Logger(){}
+  Logger() = default;
   Logger(const Logger&) = delete;
   Logger& operator=(const Logger&) = delete;
   Logger(Logger&&) = delete;

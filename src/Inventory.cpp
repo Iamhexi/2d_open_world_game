@@ -1,42 +1,52 @@
 #include "../include/Inventory.hpp"
+#include "../include/NotExistingItemFactory.hpp"
+#include "../include/Logger.hpp"
 #include <iostream>
 
-Inventory::Inventory(sf::RenderWindow& window)
+Inventory::Inventory(sf::RenderWindow& window, sf::Texture& notExistingItemTexture)
     : window(window)
 {
-    items.reserve(Inventory::inventorySize);
+    //NotExistingItemFactory factory;
+    //notExistingItem = std::make_unique<NotExistingItem>( factory.createItem(notExistingItemTexture) );
+
+    items.reserve(Inventory::maxInventorySize);
     currentItemIndex = 0;
 }
 
 
 bool Inventory::addItem(Item item)
 {
-    // TODO: Fix erro by adding operator=
-    // note: ‘Item& Item::operator=(const Item&)’ is implicitly deleted because the default definition would be ill-formed
+    if (items.size() > maxInventorySize)
+        return false;
 
-    //items.at( findFirstEmptySlot() ) = item;
-    //firstEmptyInventorySlotIndex++;
-
+    items.push_back(item);
 }
 
 bool Inventory::removeItem(unsigned int id)
 {
+    if (items.size() == 0)
+        return false;
  // TODO: create a method removing an item from the inventory
 }
 
 Item& Inventory::getCurrentItem()
 {
-    // try {
-        // return this->items.at(currentItemIndex);
-    // } catch (std::out_of_range e){
-        // std::cout << e.what() << ": The inner inventory's indicator points outside of the inventory. Any returned reference is invalid.\n";
-    // }
+    try {
+        return items.at(0);
+    } catch (const std::out_of_range& e) {
+        // TODO: return NotExistingItem Object called Null Object
+        //return *(Inventory::notExistingItem);
+        Logger::getInstance().log("There was an attempt at retrieving an item from the empty inventory. The object of NotExistingItem was returned.", LogLevel::Warning);
+    }
 }
 
 
 void Inventory::next()
 {
-    if (currentItemIndex + 1 < inventorySize)
+    if (items.size() == 0)
+        return;
+
+    else if (currentItemIndex + 1 < items.size())
         currentItemIndex++;
     else
         currentItemIndex = 0;
@@ -44,10 +54,13 @@ void Inventory::next()
 
 void Inventory::prev()
 {
-    if (currentItemIndex - 1 > 0)
+    if (items.size() == 0)
+        return;
+
+    else if (currentItemIndex - 1 > 0)
         currentItemIndex--;
     else
-        currentItemIndex = inventorySize - 1;
+        currentItemIndex = items.size() - 1;
 }
 
 void Inventory::render() const
@@ -56,16 +69,3 @@ void Inventory::render() const
     for (Item item: items)
         item.render(window);
 }
-
-unsigned int Inventory::findFirstEmptySlot() const
-{
-    /*
-    for (std::size_t i = 0; Item item: items)
-    {
-        if ( item.getId() == EMPTY_SLOT_ID )
-            return i;
-        i++;
-    }
-    */
-}
-//

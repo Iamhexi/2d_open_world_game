@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "../include/ResourceManager.hpp"
 #include "../include/Logger.hpp"
 
@@ -26,3 +27,4 @@ void ResourceManager<T>::set(std::string name, T resource)
 
 template class ResourceManager<sf::Font>;
 template class ResourceManager<sf::Texture>;
+template class ResourceManager<sf::SoundBuffer>;
