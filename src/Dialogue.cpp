@@ -21,6 +21,7 @@ void Dialogue::start()
     setUpGrahpics();
     progress = 0;
     finished = false;
+    timer.restart();
 }
 
 void Dialogue::handle()
@@ -28,18 +29,22 @@ void Dialogue::handle()
     if (finished)
         return;
 
-    if (sf::Keyboard::isKeyPressed( sf::Keyboard::Enter ) )
+    if (sf::Keyboard::isKeyPressed( sf::Keyboard::Enter ) && timer.getElapsedTime().asMilliseconds() >= repeatedKeyStrokesPreventionTimeInMs )
     {
+        timer.restart();
+
         loadCurrentSpeakerAvatar();
         loadCurrentSpeakerDialogueLine();
         toggleSpeaker();
     }
 
+    lastTimeEnterWasPressed = false;
+
 }
 
 void Dialogue::loadCurrentSpeakerDialogueLine()
 {
-    text.setString( speakers.at(currentSpeakerId).getDialogueLine() );
+    text.setString( speakers.at(currentSpeakerId).getName() + ": " + speakers.at(currentSpeakerId).getDialogueLine() );
 }
 
 void Dialogue::loadCurrentSpeakerAvatar()
@@ -71,7 +76,7 @@ void Dialogue::toggleSpeaker()
         nextDialogueLine();
     }
 
-    if ( progress >= speakers.at(currentSpeakerId).getNumberOfDialogueLines() )
+    if ( isCurrentDialogueLineLastAvailableForCurrentSpeaker() && isCurrentSpeakerLast() )
         finished = true;
 
     // TODO: after altering a speaker, pause for exactly one second, not to let the user skip dialogue lines needlessly
@@ -85,7 +90,19 @@ void Dialogue::setUpGrahpics()
     background.setOutlineThickness(4);
     background.setPosition( sf::Vector2f( 0, 3.0f * window.getSize().y/4 ) );
 
+    speakerAvatar.setPosition(100, background.getPosition().y + 50);
+    text.setPosition(200, background.getPosition().y + background.getSize().y/2);
     // TODO: set up a speaker's avatar and dialogue the line position
+}
+
+bool Dialogue::isCurrentSpeakerLast()
+{
+    return currentSpeakerId == speakers.size() - 1;
+}
+
+bool Dialogue::isCurrentDialogueLineLastAvailableForCurrentSpeaker()
+{
+    return progress >= speakers.at(currentSpeakerId).getNumberOfDialogueLines();
 }
 
 void Dialogue::render() const

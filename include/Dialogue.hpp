@@ -10,6 +10,10 @@ private:
     sf::Text text;
     std::vector<Speaker> speakers;
 
+    sf::Clock timer;
+    int32_t repeatedKeyStrokesPreventionTimeInMs = 700;
+
+    bool lastTimeEnterWasPressed;
     bool finished;
     unsigned short progress;
     unsigned short currentSpeakerId;
@@ -28,4 +32,6 @@ private:
     void loadCurrentSpeakerDialogueLine();
     void setUpGrahpics();
     void nextDialogueLine();
+    bool isCurrentSpeakerLast();
+    bool isCurrentDialogueLineLastAvailableForCurrentSpeaker();
 };
