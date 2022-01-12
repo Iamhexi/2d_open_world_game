@@ -6,7 +6,7 @@ int main()
 {
     addDialogueLineTest();
 
-    gettingNotExistingResourceDoesNotEmitExceptionTest();
+    gettingNotExistingResourceEmitsExceptionTest();
     settingAlreadyExistingResourceDoesNotEmitExceptionTest();
 
     testCreatingEventLogFile();

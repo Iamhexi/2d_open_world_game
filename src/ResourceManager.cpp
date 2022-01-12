@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "../include/ResourceManager.hpp"
+#include "../include/Logger.hpp"
 
 template<class T>
 T& ResourceManager<T>::get(std::string name)
@@ -7,14 +8,18 @@ T& ResourceManager<T>::get(std::string name)
     if (container.contains(name))
         return container[name];
     else
-        throw std::string("Resource with the given name doesn't exits.");
+    {
+      std::string errorMessage = "Resource with the name '" + name + "' doesn't exits so cannot be acquired.";
+      Logger::getInstance().log(errorMessage, LogLevel::Error);
+      throw std::string(errorMessage);
+    }
 }
 
 template<class T>
 void ResourceManager<T>::set(std::string name, T resource)
 {
     if (container.contains(name))
-        throw std::string("Resource with the given name already exits.");
+      Logger::getInstance().log("Resource with the name = '" + name  + "' already exits, thus cannot be created.", LogLevel::Warning);
     else
         container.emplace(std::pair{name, resource});
 }

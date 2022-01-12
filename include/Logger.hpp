@@ -9,10 +9,10 @@
 
 enum LogLevel
 {
-    ERROR,
-    WARNING,
-    INFO,
-    DEBUG
+    Error,
+    Warning,
+    Info,
+    Debug
 };
 
 class Logger {
@@ -26,9 +26,9 @@ public:
 
 
   void log(std::string message, LogLevel level);
-  void printEventLog(LogLevel level = LogLevel::WARNING);
+  void printEventLog(LogLevel level = LogLevel::Warning);
   void flush();
-  void saveEventLog(LogLevel level);
+  void saveEventLog(LogLevel level = LogLevel::Debug, std::string filename = "");
 
 private:
   Logger(){}
@@ -39,6 +39,7 @@ private:
 
   std::string getCurrentTime();
   std::string replaceSpacesWithUnderscores(const std::string& text);
+  std::string generateEventLogFilename();
 
 private:
     std::queue<std::pair<std::string, LogLevel>> eventLog;

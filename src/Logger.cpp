@@ -7,9 +7,11 @@ void Logger::log(std::string message, LogLevel level)
 }
 
 
-void Logger::saveEventLog(LogLevel level)
+void Logger::saveEventLog(LogLevel level, std::string filename)
 {
-    std::string filename = replaceSpacesWithUnderscores( getCurrentTime() + ".log" );
+    if (filename.empty())
+      filename = generateEventLogFilename();
+
     std::ofstream file( filename );
 
     if ( !file.is_open() || file.bad() )
@@ -20,7 +22,7 @@ void Logger::saveEventLog(LogLevel level)
     while( !eventLogCopy.empty() )
     {
         if (eventLogCopy.front().second <= level)
-            file << eventLogCopy.front().first;
+            file << eventLogCopy.front().first << std::endl;
         eventLogCopy.pop();
     }
 
@@ -45,6 +47,11 @@ std::string Logger::getCurrentTime()
     std::stringstream ss;
     ss << std::put_time(std::localtime(&t), "%F %T");
     return ss.str();
+}
+
+std::string Logger::generateEventLogFilename()
+{
+  return replaceSpacesWithUnderscores( getCurrentTime() + ".log" );
 }
 
 void Logger::flush()

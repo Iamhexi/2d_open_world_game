@@ -3,7 +3,7 @@
 
 using namespace Tests;
 
-void gettingNotExistingResourceDoesNotEmitExceptionTest()
+void gettingNotExistingResourceEmitsExceptionTest()
 {
 
     TEST(__FUNCTION__);
@@ -17,7 +17,7 @@ void gettingNotExistingResourceDoesNotEmitExceptionTest()
         exceptionThrown = true;
     }
 
-    ASSERT_FALSE(exceptionThrown);
+    ASSERT(exceptionThrown);
 
 }
 

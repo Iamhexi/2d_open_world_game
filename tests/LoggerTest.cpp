@@ -8,10 +8,11 @@ void testCreatingEventLogFile()
 {
     TEST(__FUNCTION__);
 
-    Logger::getInstance().log("Example log content", LogLevel::DEBUG);
-    Logger::getInstance().saveEventLog(LogLevel::DEBUG);
-    std::string filename = "*";
-    std::filesystem::path p("../log/" + filename);
+    const char* filename = "testEventLogFile.log";
+    Logger::getInstance().log("Example log content", LogLevel::Debug);
+    Logger::getInstance().saveEventLog(LogLevel::Debug, filename);
+
+    std::filesystem::path p(filename);
 
     ASSERT(std::filesystem::exists(p));
 
