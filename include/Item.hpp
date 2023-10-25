@@ -1,8 +1,7 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <string>
 
-#ifndef ITEM_HPP
-#define ITEM_HPP
 
 class Item
 {
@@ -25,4 +24,3 @@ public:
 
 };
 
-#endif

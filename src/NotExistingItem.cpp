@@ -8,5 +8,5 @@ NotExistingItem::NotExistingItem(sf::Texture& texture)
 
 unsigned int NotExistingItem::getId() const
 {
-    return 0;
+    return -1;
 }

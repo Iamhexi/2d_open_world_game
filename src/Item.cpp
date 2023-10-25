@@ -2,15 +2,10 @@
 
 unsigned int Item::uniqueId = 1;
 
-void Item::assignId()
-{
-    this->id = Item::uniqueId++;
-}
-
 Item::Item(sf::Texture& texture)
     : texture(texture)
 {
-
+    this->id = Item::uniqueId++;
 }
 
 unsigned int Item::getId() const

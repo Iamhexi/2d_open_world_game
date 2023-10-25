@@ -25,7 +25,7 @@ public:
 
 
   void log(std::string message, LogLevel level);
-  void printEventLog(LogLevel level = LogLevel::Warning);
+  void printEventLog(LogLevel minEventLevelToPrint = LogLevel::Warning);
   void flush();
   void saveEventLog(LogLevel level = LogLevel::Debug, std::string filename = "");
 

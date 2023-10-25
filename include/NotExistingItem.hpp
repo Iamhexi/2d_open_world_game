@@ -1,7 +1,5 @@
+#pragma once
 #include "Item.hpp"
-
-#ifndef NOT_EXISTING_ITEM_HPP
-#define NOT_EXISTING_ITEM_HPP
 
 class NotExistingItem : public Item
 {
@@ -10,4 +8,3 @@ public:
     unsigned int getId() const;
 };
 
-#endif
