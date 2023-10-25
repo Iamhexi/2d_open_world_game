@@ -9,7 +9,7 @@ Dialogue::Dialogue(sf::RenderWindow& window, sf::Font& font)
     text.setFont(font);
     text.setString("");
     text.setCharacterSize(30);
-    text.setFillColor( sf::Color(0, 0, 0) );
+    text.setFillColor( sf::Color(255, 255, 255) );
 }
 
 void Dialogue::start()

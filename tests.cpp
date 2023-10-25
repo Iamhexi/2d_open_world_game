@@ -1,16 +1,12 @@
 #include "tests/SpeakerTest.cpp"
 #include "tests/ResourceManagerTest.cpp"
 #include "tests/LoggerTest.cpp"
+#include <gtest/gtest.h>
 
-int main()
+int main(int argc, char **argv)
 {
-    addDialogueLineTest();
 
-    gettingNotExistingResourceEmitsExceptionTest();
-    settingAlreadyExistingResourceDoesNotEmitExceptionTest();
-
-    testCreatingEventLogFile();
-
-    Tests::runSummary();
-    return 0;
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
+

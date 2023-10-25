@@ -28,8 +28,8 @@ int main()
 
     {
         sf::Font marrada;
-        if (!marrada.loadFromFile("../resources/fonts/Marrada.ttf"))
-            std::cout << "Loading the Marrada font failed!\n";
+        if (!marrada.loadFromFile("../resources/fonts/marrada.ttf"))
+            std::cout << "Loading the marrada font failed!\n";
 
         fontsManager.set(std::string("marrada"), marrada);
     }
@@ -37,22 +37,17 @@ int main()
     std::string name = "Igor";
     Speaker igor( name, texturesManager.get("hero") );
     igor.addDialogueLine("Hey, how are you?");
-    igor.addDialogueLine("What are you doing>");
+    igor.addDialogueLine("What are you doing?");
 
     std::string name2 = "Igor2";
     Speaker igor2( name2, texturesManager.get("hero") );
-    igor2.addDialogueLine("DUPA DUPA DUPA");
-    igor2.addDialogueLine("LA LA LA DUPA DUPA");
+    igor2.addDialogueLine("Nothing nothing nothing");
+    igor2.addDialogueLine("La la la nothing");
 
-    std::string guest1 = "Nos z sąsiedztwa";
-    Speaker krzychu( guest1, texturesManager.get("hero") );
-    krzychu.addDialogueLine("JA CI DAM DUPE DUPE");
-    krzychu.addDialogueLine("LAAA KIEDY MNIE WYPUSCISZ Z PIWNICY??");
 
     Dialogue dialogue(window, fontsManager.get("marrada"));
     dialogue.addSpeaker(igor);
     dialogue.addSpeaker(igor2);
-    dialogue.addSpeaker(krzychu);
     dialogue.start();
 
     Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500));

@@ -1,15 +1,12 @@
-#include "../lib/TestTools.cpp"
 #include "../include/Speaker.hpp"
+#include <gtest/gtest.h>
 
-void addDialogueLineTest()
-{
-    Tests::TEST(__FUNCTION__);
-
+TEST(Speaker, requestingDialogueLineReturnsRecentlyAddedDialogueLine) {
     sf::Texture t;
-    Speaker speaker("Johh", t);
+    Speaker speaker("John", t);
     std::string line = "Hey, you little boi!";
 
     speaker.addDialogueLine(line);
 
-    Tests::ASSERT_EQUAL( speaker.getDialogueLine(), line );
+    ASSERT_EQ(speaker.getDialogueLine(), line);
 }
