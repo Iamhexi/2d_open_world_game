@@ -30,5 +30,5 @@ private:
     static constexpr float slotSide = 55.f;
 
 private:
-    void drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size) const;
+    void drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size, bool isActive) const;
 };

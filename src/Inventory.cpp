@@ -86,11 +86,14 @@ void Inventory::prev()
         currentItemIndex = items.size() - 1;
 }
 
-void Inventory::drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size) const {
+void Inventory::drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size, bool isActive) const {
     sf::RectangleShape rectangle(size);
     rectangle.setPosition(initalPosition);
 
-    rectangle.setOutlineColor(sf::Color(40, 40, 40));
+    sf::Color gray(40, 40, 40);
+    sf::Color green(0, 200, 0);
+
+    rectangle.setOutlineColor( isActive ? green : gray );
     rectangle.setOutlineThickness(2.f);
     rectangle.setFillColor(sf::Color(0,0,0,0));
     window.draw(rectangle);
@@ -113,6 +116,6 @@ void Inventory::render() const
     }
 
     for (unsigned short i = 0; i < maxInventorySize; i++)
-        drawItemSlot(sf::Vector2f(i*(slotSide) + (i+1) * (margin), yPosition), sf::Vector2f(slotSide, slotSide));
+        drawItemSlot(sf::Vector2f(i*(slotSide) + (i+1) * (margin), yPosition), sf::Vector2f(slotSide, slotSide), currentItemIndex == i);
 
 }
