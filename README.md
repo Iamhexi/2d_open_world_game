@@ -13,10 +13,20 @@ Software required to build the game:
 - gtest
 
 ## Installation
-`cmake . -B build`
-`cd build`
-`make`
-`./run`
+Run the following commands:
+```
+cmake . -B build
+cd build
+make
+./run
+```
+
+## Todo list
+
+- [ ] Let the player change an active item with the `e` and `q` keys.
+- [ ] Display an active item in the main character's hand.
+- [ ] Add NPCs to the main scene.
+- [ ] Let the player start dialogues with them.
 
 ## Gameplay
 
