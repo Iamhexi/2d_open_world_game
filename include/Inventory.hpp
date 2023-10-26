@@ -1,3 +1,4 @@
+#pragma once
 #include "NotExistingItem.hpp"
 #include <memory>
 #include <vector>
@@ -16,7 +17,6 @@ public:
 private:
     // TODO: divide into two: graphics and logic of the Inventory
     sf::RenderWindow& window;
-    sf::Sprite sprite;
 
     std::vector<std::shared_ptr<Item>> items;
     unsigned int currentItemIndex;
@@ -24,8 +24,9 @@ private:
     static constexpr unsigned int emptySlotId = 0;
 
 
-    static constexpr std::size_t maxInventorySize = 50;
+    static constexpr std::size_t maxInventorySize = 15;
     static std::shared_ptr<NotExistingItem> notExistingItem;
 
 private:
+    void drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size) const;
 };

@@ -15,7 +15,6 @@ Inventory::Inventory(sf::RenderWindow& window, sf::Texture& notExistingItemTextu
         Inventory::notExistingItem = std::make_shared<NotExistingItem>(notExistingItemTexture);
 }
 
-
 bool Inventory::addItem(Item item)
 {
     if (items.size() > maxInventorySize)
@@ -83,9 +82,25 @@ void Inventory::prev()
         currentItemIndex = items.size() - 1;
 }
 
+void Inventory::drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size) const {
+    sf::RectangleShape rectangle(size);
+    rectangle.setPosition(initalPosition);
+
+    rectangle.setOutlineColor(sf::Color(40, 40, 40));
+    rectangle.setOutlineThickness(2.f);
+    rectangle.setFillColor(sf::Color(0,0,0,0));
+    window.draw(rectangle);
+}
+
 void Inventory::render() const
 {
-    window.draw(sprite);
+    constexpr float margin = 10.f;
+
     for (auto item: items)
         item->render(window);
+
+    constexpr float slotSide = 55.f;
+    for (unsigned short i = 0; i < maxInventorySize; i++)
+        drawItemSlot(sf::Vector2f(i*(slotSide) + (i+1) * (margin), slotSide), sf::Vector2f(slotSide, slotSide));
+
 }

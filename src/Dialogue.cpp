@@ -90,8 +90,12 @@ void Dialogue::setUpGrahpics()
     background.setOutlineThickness(4);
     background.setPosition( sf::Vector2f( 0, 3.0f * window.getSize().y/4 ) );
 
+    
     speakerAvatar.setPosition(100, background.getPosition().y + 50);
-    text.setPosition(200, background.getPosition().y + background.getSize().y/2);
+    text.setPosition(
+        speakerAvatar.getPosition().x + 200 + 30,
+        background.getPosition().y + background.getSize().y/2
+    );
     // TODO: set up a speaker's avatar and dialogue the line position
 }
 

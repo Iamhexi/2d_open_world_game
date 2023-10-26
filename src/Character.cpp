@@ -4,9 +4,11 @@
 Character::Character(
     sf::RenderWindow& window,
     sf::Texture& texture,
-    sf::Vector2f startingPosition
+    sf::Vector2f startingPosition,
+    sf::Texture& notExistingItemTexture
 ): window(window), texture(texture)
 {
+    inventory = new Inventory(window, notExistingItemTexture);
     sprite.setTexture(texture);
     sprite.setPosition(startingPosition);
 }
@@ -25,6 +27,7 @@ void Character::handleMovement()
 void Character::render() const
 {
     window.draw(sprite);
+    inventory->render();
 }
 
 void Character::moveUpIfPossible()
@@ -53,4 +56,8 @@ void Character::moveLeftIfPossible()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         if (sprite.getPosition().x + speed <= window.getSize().x)
             sprite.move(speed, 0);
+}
+
+Character::~Character() {
+    delete inventory;
 }

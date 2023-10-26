@@ -6,12 +6,9 @@
 class Item
 {
 public:
+    Item(sf::Texture& texture);
     unsigned int getId() const;
     void render(sf::RenderWindow& window);
-
-protected:
-    Item(sf::Texture& texture);
-    void assignId();
 
 protected:
     unsigned int id;

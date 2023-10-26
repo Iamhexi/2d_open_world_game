@@ -82,17 +82,20 @@ int main()
     igor.addDialogueLine("Hey, how are you?");
     igor.addDialogueLine("What are you doing?");
 
-    std::string name2 = "Igor2";
-    Speaker igor2( name2, texturesManager.get("hero") );
-    igor2.addDialogueLine("Nothing nothing nothing");
-    igor2.addDialogueLine("La la la nothing");
+    std::string name2 = "Krzysztof";
+    Speaker igor2( name2, texturesManager.get("pig") );
+    igor2.addDialogueLine("Well, I've been waiting for you...");
+    igor2.addDialogueLine("Waiting?");
 
     Dialogue dialogue(window, fontsManager.get("marrada"));
     dialogue.addSpeaker(igor);
     dialogue.addSpeaker(igor2);
     dialogue.start();
 
-    Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500));
+    Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500), texturesManager.get("nonExistingItem"));
+
+    Item axe(texturesManager.get("axe"));
+    hero.inventory->addItem(axe);
 
     while (window.isOpen())
     {
@@ -102,7 +105,6 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
-
 
         hero.handleMovement();
         dialogue.handle();
