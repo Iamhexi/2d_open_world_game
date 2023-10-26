@@ -20,13 +20,15 @@ public:
 
 private:
     void initWindow();
+    void loadTextures();
+    void loadFonts();
 
 private:
     std::shared_ptr<sf::RenderWindow> window;
     sf::Vector2i windowSize;
 
-    ResourceManager<sf::Texture> texturesManager;
-    ResourceManager<sf::Font> fontsManager;
+    ResourceManager<sf::Texture> textureManager;
+    ResourceManager<sf::Font> fontManager;
 
     std::vector<std::shared_ptr<Item>> itemsOnMap;
 

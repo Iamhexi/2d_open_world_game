@@ -4,7 +4,7 @@
 class UseableItem: public Item
 {
 public:
-    UseableItem(sf::Texture& texture);
+    UseableItem(sf::Texture& texture, sf::FloatRect spawnArea);
     void setAction(std::function<void()>& function);
     void use();
     

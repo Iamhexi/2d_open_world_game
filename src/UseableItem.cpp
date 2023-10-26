@@ -1,8 +1,8 @@
 #include "../include/UseableItem.hpp"
 #include <iostream>
 
-UseableItem::UseableItem(sf::Texture& texture)
-    : Item(texture)
+UseableItem::UseableItem(sf::Texture& texture, sf::FloatRect spawnArea)
+    : Item(texture, spawnArea)
 {
 
 }

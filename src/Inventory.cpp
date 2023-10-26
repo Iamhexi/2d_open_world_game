@@ -12,7 +12,7 @@ Inventory::Inventory(sf::RenderWindow& window, sf::Texture& notExistingItemTextu
     items.reserve(Inventory::maxInventorySize);
     currentItemIndex = 0;
     if (Inventory::notExistingItem == nullptr)
-        Inventory::notExistingItem = std::make_shared<NotExistingItem>(notExistingItemTexture);
+        Inventory::notExistingItem = std::make_shared<NotExistingItem>(notExistingItemTexture, sf::FloatRect());
 }
 
 bool Inventory::addItem(Item item)
