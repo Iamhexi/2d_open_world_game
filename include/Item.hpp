@@ -2,9 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+class Character;
+class Inventory;
+
 
 class Item
 {
+    friend Character;
+    friend Inventory;
 public:
     Item(sf::Texture& texture);
     unsigned int getId() const;
@@ -13,8 +18,8 @@ public:
 protected:
     unsigned int id;
     sf::Texture& texture;
-    sf::Sprite sprite;
     std::string name;
+    sf::Sprite sprite;
 public:
 
     static unsigned int uniqueId;

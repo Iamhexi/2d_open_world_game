@@ -92,10 +92,17 @@ int main()
     dialogue.addSpeaker(igor2);
     dialogue.start();
 
-    Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 500), texturesManager.get("nonExistingItem"));
+    std::vector<std::shared_ptr<Item>> itemsOnMap;
+    auto axeLyingAround = std::make_shared<Item>(texturesManager.get("axe"));
+    itemsOnMap.push_back(axeLyingAround);
+
+
+    Character hero(window, texturesManager.get("hero"), sf::Vector2f(500, 200), texturesManager.get("nonExistingItem"));
 
     Item axe(texturesManager.get("axe"));
     hero.inventory->addItem(axe);
+
+    Logger::getInstance().printEventLog(LogLevel::Info);
 
     while (window.isOpen())
     {
@@ -107,9 +114,14 @@ int main()
         }
 
         hero.handleMovement();
+        hero.handlePickingUpItems(itemsOnMap);
+        // hero.handleStartingDialogue(charactersOnMap);
         dialogue.handle();
 
         window.clear();
+        
+        for (auto& item: itemsOnMap)
+            item->render(window);
 
         hero.render();
         dialogue.render();

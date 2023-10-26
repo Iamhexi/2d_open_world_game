@@ -21,6 +21,10 @@ bool Inventory::addItem(Item item)
         return false;
 
     items.push_back( std::make_shared<Item>(item) );
+    auto& lastItem = items.at( items.size() - 1 );
+
+    const float scaleFactor = slotSide /  lastItem->sprite.getTexture()->getSize().x;
+    lastItem->sprite.scale(scaleFactor, scaleFactor); 
     return true;
 }
 
@@ -95,12 +99,20 @@ void Inventory::drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size) con
 void Inventory::render() const
 {
     constexpr float margin = 10.f;
+    const float yPosition = window.getSize().y - 320;
 
-    for (auto item: items)
+    sf::Vertex line[] = {{{0, yPosition-20}, sf::Color::White}, {{window.getSize().x, yPosition-20}, sf::Color::White}};
+    window.draw(line, 4, sf::Lines);
+
+
+    int i = margin;
+    for (auto item: items) {
         item->render(window);
+        item->sprite.setPosition(i, yPosition);
+        i += slotSide + margin;
+    }
 
-    constexpr float slotSide = 55.f;
     for (unsigned short i = 0; i < maxInventorySize; i++)
-        drawItemSlot(sf::Vector2f(i*(slotSide) + (i+1) * (margin), slotSide), sf::Vector2f(slotSide, slotSide));
+        drawItemSlot(sf::Vector2f(i*(slotSide) + (i+1) * (margin), yPosition), sf::Vector2f(slotSide, slotSide));
 
 }

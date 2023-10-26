@@ -13,6 +13,7 @@ private:
 public:
     Character(sf::RenderWindow& window, sf::Texture& texture, sf::Vector2f startingPosition, sf::Texture& notExistingItemTexture);
     void handleMovement();
+    void handlePickingUpItems(std::vector<std::shared_ptr<Item>>& itemsOnMap);
     void render() const;
     virtual ~Character();
     Inventory* inventory;

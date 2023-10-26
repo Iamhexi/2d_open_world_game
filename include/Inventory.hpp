@@ -27,6 +27,8 @@ private:
     static constexpr std::size_t maxInventorySize = 15;
     static std::shared_ptr<NotExistingItem> notExistingItem;
 
+    static constexpr float slotSide = 55.f;
+
 private:
     void drawItemSlot(sf::Vector2f initalPosition, sf::Vector2f size) const;
 };
