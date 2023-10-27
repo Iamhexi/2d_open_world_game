@@ -18,6 +18,9 @@ private:
     sf::RenderWindow& window;
     sf::Texture& texture;
     sf::Sprite sprite;
+
+    sf::Sprite activeItemSprite;
+
     float speed = 3.5f;
     bool canMove = true;
     sf::Time minimumItemChangeThreshold = sf::milliseconds(150);
@@ -30,4 +33,6 @@ private:
     void moveLeftIfPossible();
 
     bool enoughTimePassedSinceLastItemChange() const;
+    void moveSprites(float x, float y);
+    void setUpSprites( sf::Vector2f startingPosition, sf::Texture& texture);
 };

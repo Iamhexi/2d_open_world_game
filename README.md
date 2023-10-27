@@ -24,7 +24,7 @@ make
 ## Todo list
 
 - [x] Let the player change an active item with the `e` and `q` keys.
-- [ ] Display an active item in the main character's hand.
+- [x] Display an active item in the main character's hand.
 - [ ] Add NPCs to the main scene.
 - [ ] Let the player start dialogues with them.
 

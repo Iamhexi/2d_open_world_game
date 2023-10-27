@@ -39,6 +39,9 @@ void Scene::init() {
     Item axe(textureManager.get("axe"));
     hero->inventory->addItem(axe);
 
+    Item hammer(textureManager.get("hammer"));
+    hero->inventory->addItem(hammer);
+
     Logger::getInstance().printEventLog(LogLevel::Info);
 }
 

@@ -9,9 +9,22 @@ Character::Character(
 ): window(window), texture(texture)
 {
     inventory = new Inventory(window, notExistingItemTexture);
+    
+    setUpSprites(startingPosition, texture);
+
+    itemChangeClock.restart();
+}
+
+void Character::setUpSprites( sf::Vector2f startingPosition, sf::Texture& texture) {
     sprite.setTexture(texture);
     sprite.setPosition(startingPosition);
-    itemChangeClock.restart();
+
+    activeItemSprite.setTexture( inventory->getCurrentItem()->texture );
+    activeItemSprite.setPosition( 
+        sprite.getGlobalBounds().left + sprite.getGlobalBounds().width,
+        sprite.getGlobalBounds().top
+    );
+    activeItemSprite.setScale(0.5f, 0.5f);
 }
 
 void Character::handleMovement()
@@ -49,6 +62,8 @@ void Character::handleChangingActiveItem() {
     else if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::Q ))
         inventory->prev();
     
+    activeItemSprite.setTexture( inventory->getCurrentItem()->texture );
+
     itemChangeClock.restart();
 }
 
@@ -58,36 +73,44 @@ bool Character::enoughTimePassedSinceLastItemChange() const {
 
 void Character::render() const
 {
+
     window.draw(sprite);
+    window.draw(activeItemSprite);
+
     inventory->render();
+}
+
+void Character::moveSprites(float x, float y) {
+    sprite.move(x, y);
+    activeItemSprite.move(x, y);
 }
 
 void Character::moveUpIfPossible()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        if (sprite.getPosition().y - speed >= 0)
-            sprite.move(0, -speed);
+        if (sprite.getPosition().y - speed >= 0) 
+            moveSprites(0, -speed);
 }
 
 void Character::moveDownIfPossible()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         if (sprite.getPosition().y + speed <= window.getSize().y - 540) // TODO: make space for a panel with inventory
-            sprite.move(0, speed);
+            moveSprites(0, speed);
 }
 
 void Character::moveRightIfPossible()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         if (sprite.getPosition().x - speed >= 0)
-            sprite.move(-speed, 0);
+            moveSprites(-speed, 0);
 }
 
 void Character::moveLeftIfPossible()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         if (sprite.getPosition().x + texture.getSize().x + speed <= window.getSize().x)
-            sprite.move(speed, 0);
+            moveSprites(speed, 0);
 }
 
 Character::~Character() {
