@@ -23,7 +23,7 @@ make
 
 ## Todo list
 
-- [ ] Let the player change an active item with the `e` and `q` keys.
+- [x] Let the player change an active item with the `e` and `q` keys.
 - [ ] Display an active item in the main character's hand.
 - [ ] Add NPCs to the main scene.
 - [ ] Let the player start dialogues with them.
@@ -40,3 +40,5 @@ make
 | s | Move down. |
 | a | Move left. |
 | d | Move right. |
+| e | Choose the next item from an inventory. |
+| q | Choose the previous item from an invetory. |

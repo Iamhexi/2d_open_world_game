@@ -86,6 +86,7 @@ void Scene::run() {
 
         hero->handleMovement();
         hero->handlePickingUpItems(itemsOnMap);
+        hero->handleChangingActiveItem();
         // hero->handleStartingDialogue(charactersOnMap);
         // dialogue.handle();
 

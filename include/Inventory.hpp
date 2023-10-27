@@ -19,7 +19,7 @@ private:
     sf::RenderWindow& window;
 
     std::vector<std::shared_ptr<Item>> items;
-    unsigned int currentItemIndex;
+    int currentItemIndex;
 
     static constexpr unsigned int emptySlotId = 0;
 

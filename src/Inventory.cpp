@@ -9,7 +9,6 @@ std::shared_ptr<NotExistingItem> Inventory::notExistingItem = nullptr;
 Inventory::Inventory(sf::RenderWindow& window, sf::Texture& notExistingItemTexture)
     : window(window)
 {
-    items.reserve(Inventory::maxInventorySize);
     currentItemIndex = 0;
     if (Inventory::notExistingItem == nullptr)
         Inventory::notExistingItem = std::make_shared<NotExistingItem>(notExistingItemTexture, sf::FloatRect());
@@ -66,10 +65,10 @@ std::shared_ptr<Item> Inventory::getCurrentItem()
 
 void Inventory::next()
 {
-    if (items.size() == 0)
+    if (items.size() < 2)
         return;
 
-    else if (currentItemIndex + 1 < items.size())
+    if (currentItemIndex + 1 < items.size())
         currentItemIndex++;
     else
         currentItemIndex = 0;
@@ -77,10 +76,10 @@ void Inventory::next()
 
 void Inventory::prev()
 {
-    if (items.size() == 0)
+    if (items.size() < 2)
         return;
 
-    else if (currentItemIndex - 1 > 0)
+    if (currentItemIndex - 1 >= 0)
         currentItemIndex--;
     else
         currentItemIndex = items.size() - 1;

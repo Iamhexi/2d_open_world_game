@@ -11,6 +11,7 @@ Character::Character(
     inventory = new Inventory(window, notExistingItemTexture);
     sprite.setTexture(texture);
     sprite.setPosition(startingPosition);
+    itemChangeClock.restart();
 }
 
 void Character::handleMovement()
@@ -36,6 +37,23 @@ void Character::handlePickingUpItems(std::vector<std::shared_ptr<Item>>& itemsOn
 
         }
     }
+}
+
+void Character::handleChangingActiveItem() {
+    
+    if (!enoughTimePassedSinceLastItemChange())
+        return ;
+
+    if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::E ))
+        inventory->next();
+    else if (sf::Keyboard::isKeyPressed( sf::Keyboard::Key::Q ))
+        inventory->prev();
+    
+    itemChangeClock.restart();
+}
+
+bool Character::enoughTimePassedSinceLastItemChange() const {
+    return itemChangeClock.getElapsedTime() >= minimumItemChangeThreshold;
 }
 
 void Character::render() const
