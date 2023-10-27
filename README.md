@@ -25,8 +25,9 @@ make
 
 - [x] Let the player change an active item with the `e` and `q` keys.
 - [x] Display an active item in the main character's hand.
-- [ ] Add NPCs to the main scene.
+- [x] Add NPCs to the main scene.
 - [ ] Let the player start dialogues with them.
+- [ ] Add path to an individual NPC follow. Some NPCs may just stand.
 
 ## Gameplay
 

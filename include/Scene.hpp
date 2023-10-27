@@ -33,5 +33,5 @@ private:
     std::vector<std::shared_ptr<Item>> itemsOnMap;
 
     std::unique_ptr<Character> hero;
-    std::vector<std::shared_ptr<Character>> otherCharactersOnMap;
+    std::vector<std::shared_ptr<Character>> NPCs;
 };

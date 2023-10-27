@@ -3,6 +3,8 @@
 Scene::Scene(sf::Vector2i windowSize): windowSize(windowSize) {}
 
 void Scene::init() {
+    try {
+
     initWindow(); 
     loadFonts();
     loadTextures();
@@ -27,7 +29,6 @@ void Scene::init() {
         sf::FloatRect(0, 0, window->getSize().x - textureManager.get("axe").getSize().x, window->getSize().y - 540 ) 
     ) );
 
-
     hero = std::make_unique<Character>(
         *window,
         textureManager.get("hero"),
@@ -35,14 +36,43 @@ void Scene::init() {
         textureManager.get("nonExistingItem")
     );
 
-    
     Item axe(textureManager.get("axe"));
     hero->inventory->addItem(axe);
 
     Item hammer(textureManager.get("hammer"));
     hero->inventory->addItem(hammer);
 
+    Character pig(
+        *window,
+        textureManager.get("pig"),
+        sf::Vector2f(200, 200),
+        textureManager.get("nonExistingItem")
+    );
+
+    NPCs.emplace_back(
+        std::make_shared<Character>(
+            *window,
+            textureManager.get("pig"),
+            sf::Vector2f(200, 200),
+            textureManager.get("nonExistingItem")
+        )
+    );
+
+    NPCs.emplace_back(
+        std::make_shared<Character>(
+            *window,
+            textureManager.get("farmer"),
+            sf::Vector2f(500, 200),
+            textureManager.get("nonExistingItem")
+        )
+    );
+
     Logger::getInstance().printEventLog(LogLevel::Info);
+
+    } catch(std::string exception) {
+        std::cout << exception << std::endl;
+        Logger::getInstance().printEventLog(LogLevel::Debug);
+    }
 }
 
 void Scene::initWindow() {
@@ -97,6 +127,9 @@ void Scene::run() {
         
         for (auto& item: itemsOnMap)
             item->render(*window);
+
+        for (auto& NPC: NPCs)
+            NPC->render();
 
         hero->render();
         // dialogue.render();
