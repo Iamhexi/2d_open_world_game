@@ -26,7 +26,8 @@ make
 - [x] Let the player change an active item with the `e` and `q` keys.
 - [x] Display an active item in the main character's hand.
 - [x] Add NPCs to the main scene.
-- [ ] Let the player start dialogues with them.
+- [x] Let the player start dialogues with NPCs.
+- [ ] Each character should have an original dialogue. Dialogues should be automatically loaded from text files.
 - [ ] Add path to an individual NPC follow. Some NPCs may just stand.
 
 ## Gameplay
@@ -43,3 +44,4 @@ make
 | d | Move right. |
 | e | Choose the next item from an inventory. |
 | q | Choose the previous item from an invetory. |
+| z | Start a conversation with a nearby character. |

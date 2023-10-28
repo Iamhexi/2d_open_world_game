@@ -3,12 +3,14 @@
 #include <string>
 #include "RandomNumberGenerator.hpp"
 
+class Player;
 class Character;
 class Inventory;
 
 
 class Item
 {
+    friend Player;
     friend Character;
     friend Inventory;
 public:

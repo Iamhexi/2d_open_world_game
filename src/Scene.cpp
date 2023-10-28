@@ -9,31 +9,32 @@ void Scene::init() {
     loadFonts();
     loadTextures();
 
-    // std::string name = "Igor";
-    // Speaker igor( name, textureManager.get("hero") );
-    // igor.addDialogueLine("Hey, how are you?");
-    // igor.addDialogueLine("What are you doing?");
+    Character::notExistingItemTexture = std::make_shared<sf::Texture>(textureManager.get("nonExistingItem"));
+    
+    std::string name = "Igor";
+    Speaker igor( name, textureManager.get("hero") );
+    igor.addDialogueLine("Hey, how are you?");
+    igor.addDialogueLine("What are you doing?");
 
-    // std::string name2 = "Krzysztof";
-    // Speaker igor2( name2, textureManager.get("pig") );
-    // igor2.addDialogueLine("Well, I've been waiting for you...");
-    // igor2.addDialogueLine("Waiting?");
+    std::string name2 = "Krzysztof";
+    Speaker igor2( name2, textureManager.get("pig") );
+    igor2.addDialogueLine("Well, I've been waiting for you...");
+    igor2.addDialogueLine("Waiting?");
 
-    // Dialogue dialogue(window, fontManager.get("marrada"));
-    // dialogue.addSpeaker(igor);
-    // dialogue.addSpeaker(igor2);
-    // dialogue.start();
+    Dialogue dialogue(*window, fontManager.get("marrada"));
+    dialogue.addSpeaker(igor);
+    dialogue.addSpeaker(igor2);
+
 
     itemsOnMap.emplace_back( std::make_shared<Item>(
         textureManager.get("axe"),
         sf::FloatRect(0, 0, window->getSize().x - textureManager.get("axe").getSize().x, window->getSize().y - 540 ) 
     ) );
 
-    hero = std::make_unique<Character>(
+    hero = std::make_unique<Player>(
         *window,
         textureManager.get("hero"),
-        sf::Vector2f(500, 200),
-        textureManager.get("nonExistingItem")
+        sf::Vector2f(500, 200)
     );
 
     Item axe(textureManager.get("axe"));
@@ -42,28 +43,21 @@ void Scene::init() {
     Item hammer(textureManager.get("hammer"));
     hero->inventory->addItem(hammer);
 
-    Character pig(
-        *window,
-        textureManager.get("pig"),
-        sf::Vector2f(200, 200),
-        textureManager.get("nonExistingItem")
-    );
-
     NPCs.emplace_back(
-        std::make_shared<Character>(
+        std::make_shared<NPC>(
             *window,
             textureManager.get("pig"),
             sf::Vector2f(200, 200),
-            textureManager.get("nonExistingItem")
+            std::make_shared<Dialogue>(dialogue)
         )
     );
 
     NPCs.emplace_back(
-        std::make_shared<Character>(
+        std::make_shared<NPC>(
             *window,
             textureManager.get("farmer"),
             sf::Vector2f(500, 200),
-            textureManager.get("nonExistingItem")
+            std::make_shared<Dialogue>(dialogue)
         )
     );
 
@@ -120,8 +114,10 @@ void Scene::run() {
         hero->handleMovement();
         hero->handlePickingUpItems(itemsOnMap);
         hero->handleChangingActiveItem();
-        // hero->handleStartingDialogue(charactersOnMap);
-        // dialogue.handle();
+        hero->handleStartingConversation(NPCs);
+    
+        for (auto& NPC: NPCs)
+            NPC->selfManage(itemsOnMap);
 
         window->clear();
         

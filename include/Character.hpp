@@ -2,23 +2,27 @@
 #include <SFML/Graphics.hpp>
 #include "Inventory.hpp"
 
-class Character
-{
+class NPC;
+
+class Character {
+    friend NPC;
 
 public:
-    Character(sf::RenderWindow& window, sf::Texture& texture, sf::Vector2f startingPosition, sf::Texture& notExistingItemTexture);
-    void handleMovement();
-    void handlePickingUpItems(std::vector<std::shared_ptr<Item>>& itemsOnMap);
-    void handleChangingActiveItem();
+    Character(sf::RenderWindow& window, sf::Texture& texture, sf::Vector2f startingPosition);
+    virtual void handleMovement() = 0;
+    virtual void handlePickingUpItems(std::vector<std::shared_ptr<Item>>& itemsOnMap) = 0;
+    virtual void handleChangingActiveItem() = 0;
     void render() const;
     virtual ~Character();
-    Inventory* inventory;
 
-private:
+public:
+    Inventory* inventory;
+    static std::shared_ptr<sf::Texture> notExistingItemTexture;
+
+protected:
     sf::RenderWindow& window;
     sf::Texture& texture;
     sf::Sprite sprite;
-
     sf::Sprite activeItemSprite;
 
     float speed = 3.5f;
@@ -26,13 +30,13 @@ private:
     sf::Time minimumItemChangeThreshold = sf::milliseconds(150);
     sf::Clock itemChangeClock;
 
-private:
-    void moveUpIfPossible();
-    void moveDownIfPossible();
-    void moveRightIfPossible();
-    void moveLeftIfPossible();
+protected:
+    virtual void moveUpIfPossible() = 0;
+    virtual void moveDownIfPossible() = 0;
+    virtual void moveRightIfPossible() = 0;
+    virtual void moveLeftIfPossible() = 0;
 
-    bool enoughTimePassedSinceLastItemChange() const;
     void moveSprites(float x, float y);
     void setUpSprites( sf::Vector2f startingPosition, sf::Texture& texture);
+    bool enoughTimePassedSinceLastItemChange() const;
 };

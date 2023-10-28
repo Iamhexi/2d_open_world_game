@@ -22,6 +22,11 @@ void Dialogue::start()
     progress = 0;
     finished = false;
     timer.restart();
+
+
+    loadCurrentSpeakerAvatar();
+    loadCurrentSpeakerDialogueLine();
+    toggleSpeaker();
 }
 
 void Dialogue::handle()

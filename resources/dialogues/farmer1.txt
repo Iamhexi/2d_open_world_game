@@ -1,0 +1,5 @@
+farmer
+you: Hey!
+farmer: Hello, ain't you thirsty?
+you: No, thanks.
+farmer: It's good to see such a young man here.

@@ -1,3 +1,4 @@
+#pragma once
 #include "Speaker.hpp"
 #include <vector>
 

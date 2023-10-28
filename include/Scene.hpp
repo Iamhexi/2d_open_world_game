@@ -1,6 +1,7 @@
 #pragma once
 #include "Item.hpp"
-#include "Character.hpp"
+#include "NPC.hpp"
+#include "Player.hpp"
 #include "ResourceManager.hpp"
 #include "Dialogue.hpp"
 #include "Inventory.hpp"
@@ -32,6 +33,6 @@ private:
 
     std::vector<std::shared_ptr<Item>> itemsOnMap;
 
-    std::unique_ptr<Character> hero;
-    std::vector<std::shared_ptr<Character>> NPCs;
+    std::unique_ptr<Player> hero;
+    std::vector<std::shared_ptr<NPC>> NPCs;
 };
