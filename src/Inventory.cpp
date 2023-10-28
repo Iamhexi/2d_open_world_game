@@ -32,7 +32,7 @@ bool Inventory::removeItem(unsigned int id)
     if (items.size() == 0)
         return false;
     
-    if (currentItemIndex == items.size() - 1)
+    if ( static_cast<size_t>(currentItemIndex + 1)  == items.size()) // TODO: verify if is there a bug.
         currentItemIndex--;
     
     auto item = std::find_if(
@@ -68,7 +68,7 @@ void Inventory::next()
     if (items.size() < 2)
         return;
 
-    if (currentItemIndex + 1 < items.size())
+    if ( static_cast<size_t>(currentItemIndex + 1)  < items.size())
         currentItemIndex++;
     else
         currentItemIndex = 0;
@@ -103,7 +103,7 @@ void Inventory::render() const
     constexpr float margin = 10.f;
     const float yPosition = window.getSize().y - 320;
 
-    sf::Vertex line[] = {{{0, yPosition-20}, sf::Color::White}, {{window.getSize().x, yPosition-20}, sf::Color::White}};
+    sf::Vertex line[] = {{{0, yPosition-20}, sf::Color::White}, {{static_cast<float>( window.getSize().x ), yPosition-20.f}, sf::Color::White}};
     window.draw(line, 4, sf::Lines);
 
 

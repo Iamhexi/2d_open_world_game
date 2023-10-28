@@ -3,7 +3,7 @@
 #include "NPC.hpp"
 #include "Player.hpp"
 #include "ResourceManager.hpp"
-#include "Dialogue.hpp"
+#include "DialogueManager.hpp"
 #include "Inventory.hpp"
 #include "Logger.hpp"
 
@@ -23,6 +23,7 @@ private:
     void initWindow();
     void loadTextures();
     void loadFonts();
+    void loadDialogues();
 
 private:
     std::shared_ptr<sf::RenderWindow> window;
@@ -30,6 +31,7 @@ private:
 
     ResourceManager<sf::Texture> textureManager;
     ResourceManager<sf::Font> fontManager;
+    std::shared_ptr<DialogueManager> dialogueManager;
 
     std::vector<std::shared_ptr<Item>> itemsOnMap;
 

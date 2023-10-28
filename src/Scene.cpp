@@ -5,26 +5,13 @@ Scene::Scene(sf::Vector2i windowSize): windowSize(windowSize) {}
 void Scene::init() {
     try {
 
+    // Order is VERY important.
     initWindow(); 
     loadFonts();
     loadTextures();
+    loadDialogues();
 
     Character::notExistingItemTexture = std::make_shared<sf::Texture>(textureManager.get("nonExistingItem"));
-    
-    std::string name = "Igor";
-    Speaker igor( name, textureManager.get("hero") );
-    igor.addDialogueLine("Hey, how are you?");
-    igor.addDialogueLine("What are you doing?");
-
-    std::string name2 = "Krzysztof";
-    Speaker igor2( name2, textureManager.get("pig") );
-    igor2.addDialogueLine("Well, I've been waiting for you...");
-    igor2.addDialogueLine("Waiting?");
-
-    Dialogue dialogue(*window, fontManager.get("marrada"));
-    dialogue.addSpeaker(igor);
-    dialogue.addSpeaker(igor2);
-
 
     itemsOnMap.emplace_back( std::make_shared<Item>(
         textureManager.get("axe"),
@@ -48,7 +35,7 @@ void Scene::init() {
             *window,
             textureManager.get("pig"),
             sf::Vector2f(200, 200),
-            std::make_shared<Dialogue>(dialogue)
+            dialogueManager->get("pig")
         )
     );
 
@@ -57,7 +44,7 @@ void Scene::init() {
             *window,
             textureManager.get("farmer"),
             sf::Vector2f(500, 200),
-            std::make_shared<Dialogue>(dialogue)
+            dialogueManager->get("farmer")
         )
     );
 
@@ -100,6 +87,16 @@ void Scene::loadFonts() {
     fontManager.set(std::string("marrada"), marrada);
 }
 
+void Scene::loadDialogues() {
+    dialogueManager = std::make_shared<DialogueManager>(
+        *window,
+        fontManager.get("marrada"),
+        textureManager
+    );
+
+    dialogueManager->loadDialogues("../resources/dialogues");
+}
+
 void Scene::run() {
     
     while (window->isOpen())
@@ -117,7 +114,7 @@ void Scene::run() {
         hero->handleStartingConversation(NPCs);
     
         for (auto& NPC: NPCs)
-            NPC->selfManage(itemsOnMap);
+            NPC->selfManage(itemsOnMap, *hero);
 
         window->clear();
         
@@ -128,7 +125,6 @@ void Scene::run() {
             NPC->render();
 
         hero->render();
-        // dialogue.render();
 
         window->display();
     }

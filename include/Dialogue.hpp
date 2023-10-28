@@ -26,6 +26,7 @@ public:
     void handle();
     void addSpeaker(Speaker speaker);
     void render() const;
+    bool isFinished() const;
 
 private:
     void toggleSpeaker();

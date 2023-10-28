@@ -114,6 +114,10 @@ bool Dialogue::isCurrentDialogueLineLastAvailableForCurrentSpeaker()
     return progress >= speakers.at(currentSpeakerId).getNumberOfDialogueLines();
 }
 
+bool Dialogue::isFinished() const {
+    return finished;
+}
+
 void Dialogue::render() const
 {
     if (!finished)

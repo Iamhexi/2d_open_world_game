@@ -27,7 +27,8 @@ make
 - [x] Display an active item in the main character's hand.
 - [x] Add NPCs to the main scene.
 - [x] Let the player start dialogues with NPCs.
-- [ ] Each character should have an original dialogue. Dialogues should be automatically loaded from text files.
+- [x] Each NPCs should have an original dialogue. Dialogues should be automatically loaded from text files.
+- [x] Allow the player to replay any dialogue infinite number of times.
 - [ ] Add path to an individual NPC follow. Some NPCs may just stand.
 
 ## Gameplay

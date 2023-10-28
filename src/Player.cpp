@@ -12,8 +12,7 @@ Player::Player(
 
 void Player::handleMovement()
 {
-    if (canMove)
-    {
+    if (canMove && !inConversation) {
         moveUpIfPossible();
         moveDownIfPossible();
         moveRightIfPossible();

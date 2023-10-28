@@ -5,27 +5,30 @@ NPC::NPC(
     sf::RenderWindow& window,
     sf::Texture& texture,
     sf::Vector2f startingPosition,
-    std::shared_ptr<Dialogue> dialogue
-): Character(window, texture, startingPosition) {
-    this->dialogue = dialogue;
+    Dialogue& dialogue
+): Character(window, texture, startingPosition), dialogue(dialogue) {
+
 }
 
-void NPC::selfManage(std::vector<std::shared_ptr<Item>>& itemsOnMap) {
+void NPC::selfManage(std::vector<std::shared_ptr<Item>>& itemsOnMap, Player& player) {
     handleMovement();
-    handleDialogues();
+    handleDialogues(player);
     handlePickingUpItems(itemsOnMap);
     handleChangingActiveItem();
 }
 
 void NPC::startDialogue() {
-    dialogue->start();
+    dialogue.start();
     dialogueStarted = true;
-    std::cout << "Dialogue started!\n";
 }
 
-void NPC::handleDialogues() {
-    if (dialogueStarted)
-        dialogue->handle();
+void NPC::handleDialogues(Player& player) {
+    if (dialogueStarted) {
+        dialogue.handle();
+        if (dialogue.isFinished())
+            player.finishConversation();
+    }
+    
 }
 
 void NPC::handleMovement()  {
@@ -58,5 +61,5 @@ void NPC::moveLeftIfPossible() {
 
 void NPC::render() const {
     Character::render();
-    dialogue->render();
+    dialogue.render();
 }
