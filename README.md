@@ -29,7 +29,8 @@ make
 - [x] Let the player start dialogues with NPCs.
 - [x] Each NPCs should have an original dialogue. Dialogues should be automatically loaded from text files.
 - [x] Allow the player to replay any dialogue infinite number of times.
-- [ ] Add path to an individual NPC follow. Some NPCs may just stand.
+- [x] Add path to an individual NPC follow. Some NPCs may just stand.
+- [ ] Fix the bug causing the player to stop moving only in the conversation with the first NPC and allowing the player to move in the later ones.
 
 ## Gameplay
 

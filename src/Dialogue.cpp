@@ -83,8 +83,6 @@ void Dialogue::toggleSpeaker()
 
     if ( isCurrentDialogueLineLastAvailableForCurrentSpeaker() && isCurrentSpeakerLast() )
         finished = true;
-
-    // TODO: after altering a speaker, pause for exactly one second, not to let the user skip dialogue lines needlessly
 }
 
 void Dialogue::setUpGrahpics()
@@ -96,12 +94,11 @@ void Dialogue::setUpGrahpics()
     background.setPosition( sf::Vector2f( 0, 3.0f * window.getSize().y/4 ) );
 
     
-    speakerAvatar.setPosition(100, background.getPosition().y + 50);
+    speakerAvatar.setPosition(10, background.getPosition().y + 20);
     text.setPosition(
         speakerAvatar.getPosition().x + 200 + 30,
         background.getPosition().y + background.getSize().y/2
     );
-    // TODO: set up a speaker's avatar and dialogue the line position
 }
 
 bool Dialogue::isCurrentSpeakerLast()

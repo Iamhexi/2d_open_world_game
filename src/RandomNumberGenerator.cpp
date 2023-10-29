@@ -3,7 +3,9 @@
 bool RandomNumberGenerator::isInitialized {false};
 
 uint RandomNumberGenerator::generate(int lowerBound, int upperBound) {
-    if (!isInitialized)
+    if (!isInitialized) {
         srand(time(NULL));
+        isInitialized = true;
+    }
     return rand() % (upperBound - lowerBound + 1) + lowerBound;
 }

@@ -48,6 +48,15 @@ void Scene::init() {
         )
     );
 
+    NPCs.emplace_back(
+        std::make_shared<NPC>(
+            *window,
+            textureManager.get("king_nose"),
+            sf::Vector2f(700, 100),
+            dialogueManager->get("king_nose")
+        )
+    );
+
     Logger::getInstance().printEventLog(LogLevel::Info);
 
     } catch(std::string exception) {

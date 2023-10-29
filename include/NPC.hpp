@@ -3,6 +3,7 @@
 #include "Character.hpp"
 #include "Dialogue.hpp"
 #include "Player.hpp"
+#include "Path.hpp"
 
 class NPC : public Character {
     friend Player;
@@ -31,7 +32,11 @@ private:
     virtual void moveRightIfPossible() override;
     virtual void moveLeftIfPossible() override;
 
+    void moveTowards(const sf::Vector2f& destination);
+    bool reachedDestination() const;
+
 private:
     bool dialogueStarted {false};
     Dialogue& dialogue;
+    std::shared_ptr<Path> path;
 };
