@@ -26,14 +26,16 @@ void NPC::startDialogue() {
 void NPC::handleDialogues(Player& player) {
     if (dialogueStarted) {
         dialogue.handle();
-        if (dialogue.isFinished())
+        if (dialogue.isFinished()) {
             player.finishConversation();
+            dialogueStarted = false;
+        }
     }
     
 }
 
 void NPC::handleMovement() {
-    if (!canMove)
+    if (!canMove || dialogueStarted)
         return;
 
     if (reachedDestination())
