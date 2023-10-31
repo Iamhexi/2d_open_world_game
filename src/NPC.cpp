@@ -1,6 +1,8 @@
 #include "../include/NPC.hpp"
 #include <iostream>
 
+using ItemPtr = std::shared_ptr<Item>;
+
 NPC::NPC(
     sf::RenderWindow& window,
     sf::Texture& texture,
@@ -9,13 +11,19 @@ NPC::NPC(
 ): Character(window, texture, startingPosition), dialogue(dialogue) {
     path = std::make_shared<Path>(window);
     path->generateRandomPath(10);
+    breakBetweenAttacks = sf::milliseconds(1000);
 }
 
-void NPC::selfManage(std::vector<std::shared_ptr<Item>>& itemsOnMap, Player& player) {
+void NPC::selfManage(
+    std::vector<std::shared_ptr<Character>>& NPCsOnMap,
+    std::vector<ItemPtr>& itemsOnMap,
+    std::shared_ptr<Player> player
+) {
     handleMovement();
-    handleDialogues(player);
+    handleDialogues(*player);
     handlePickingUpItems(itemsOnMap);
     handleChangingActiveItem();
+    handleFight(player, NPCsOnMap);
 }
 
 void NPC::startDialogue() {
@@ -50,6 +58,24 @@ void NPC::handlePickingUpItems(std::vector<std::shared_ptr<Item>>& itemsOnMap)  
 
 void NPC::handleChangingActiveItem()  {
     
+}
+
+void NPC::startAttackAnimation() {
+    activeItemSprite.rotate(10);
+    attackClock.restart();
+}
+
+void NPC::handleFight(std::shared_ptr<Character> player, std::vector<std::shared_ptr<Character>> otherNPCs) {
+    auto nearbyCharacters = findNearbyCharacters(player, otherNPCs);
+
+    if (isEligibleToAttack(nearbyCharacters))
+        startAttackAnimation();
+        
+
+    // TODO: After making an attack, introduce inability time during which attacks don't occur. Prevent constant attack attacks.
+
+    // for (auto character: nearbyCharacters)
+        // character->takeDamage(damage);
 }
 
 void NPC::moveUpIfPossible() {
@@ -99,6 +125,8 @@ void NPC::moveTowards(const sf::Vector2f& destination) {
 }
 
 void NPC::render() const {
-    Character::render();
-    dialogue.render();
+    if (health > 0) {
+        dialogue.render();
+        Character::render();
+    }
 }

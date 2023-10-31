@@ -16,6 +16,10 @@ Character::Character(
     itemChangeClock.restart();
 }
 
+void Character::takeDamage(float damage) {
+    health = (health - damage > 0) ? health - damage : 0;
+}
+
 void Character::setUpSprites( sf::Vector2f startingPosition, sf::Texture& texture) {
     sprite.setTexture(texture);
     sprite.setPosition(startingPosition);
@@ -117,4 +121,25 @@ void Character::moveLeftIfPossible()
 
 Character::~Character() {
     delete inventory;
+}
+
+std::vector<std::shared_ptr<Character>> Character::findNearbyCharacters(std::shared_ptr<Character> player, std::vector<std::shared_ptr<Character>> otherNPCs) const {
+    
+    // TODO: remove this NPC object from otherNPCs vector
+    std::vector<std::shared_ptr<Character>> nearbyCharacters;
+    if (player->sprite.getGlobalBounds().intersects( sprite.getGlobalBounds() ))
+        nearbyCharacters.push_back(player);
+
+    for (auto npc: otherNPCs)
+        // if (npc == std::make_shared<Character>(this))
+        //     break;
+        if (npc->sprite.getGlobalBounds().intersects( sprite.getGlobalBounds() ))
+            nearbyCharacters.push_back(npc);
+    
+    return nearbyCharacters;
+
+}
+
+bool Character::isEligibleToAttack(std::vector<std::shared_ptr<Character>> nearbyCharacters) const {
+    return attackClock.getElapsedTime() > breakBetweenAttacks && nearbyCharacters.size() > 0;
 }

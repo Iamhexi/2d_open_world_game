@@ -35,6 +35,6 @@ private:
 
     std::vector<std::shared_ptr<Item>> itemsOnMap;
 
-    std::unique_ptr<Player> hero;
-    std::vector<std::shared_ptr<NPC>> NPCs;
+    std::shared_ptr<Player> hero;
+    std::vector<std::shared_ptr<Character>> NPCs;
 };

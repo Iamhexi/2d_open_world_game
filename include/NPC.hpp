@@ -4,9 +4,11 @@
 #include "Dialogue.hpp"
 #include "Player.hpp"
 #include "Path.hpp"
+using ItemPtr = std::shared_ptr<Item>;
 
 class NPC : public Character {
     friend Player;
+    friend Character;
 
 public:
     NPC(
@@ -16,7 +18,13 @@ public:
         Dialogue& dialogue
     );
 
-    void selfManage(std::vector<std::shared_ptr<Item>>& itemsOnMap, Player& player);
+    void selfManage(
+        std::vector<std::shared_ptr<Character>>& NPCsOnMap,
+        std::vector<ItemPtr>& itemsOnMap,
+        std::shared_ptr<Player> player
+    );
+
+
     void startDialogue();
 
     void render() const;
@@ -26,6 +34,7 @@ private:
     virtual void handleMovement() override;
     virtual void handlePickingUpItems(std::vector<std::shared_ptr<Item>>& itemsOnMap) override;
     virtual void handleChangingActiveItem() override;
+    virtual void handleFight(std::shared_ptr<Character> player, std::vector<std::shared_ptr<Character>> otherNPCs) override;
     
     virtual void moveUpIfPossible() override;
     virtual void moveDownIfPossible() override;
@@ -34,6 +43,7 @@ private:
 
     void moveTowards(const sf::Vector2f& destination);
     bool reachedDestination() const;
+    void startAttackAnimation();
 
 private:
     bool dialogueStarted {false};

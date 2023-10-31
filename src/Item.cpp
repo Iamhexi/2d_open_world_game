@@ -6,8 +6,10 @@ Item::Item(sf::Texture& texture, sf::FloatRect spawnArea)
     : texture(texture)
 {
     sprite.setTexture(texture);
+    sprite.setScale(0.5f, 0.5f);
     this->id = Item::uniqueId++;
     randomizePosition(spawnArea);
+    
 }
 
 unsigned int Item::getId() const {

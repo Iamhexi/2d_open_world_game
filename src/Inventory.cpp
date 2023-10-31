@@ -22,7 +22,7 @@ bool Inventory::addItem(Item item)
     items.push_back( std::make_shared<Item>(item) );
     auto& lastItem = items.at( items.size() - 1 );
 
-    const float scaleFactor = slotSide /  lastItem->sprite.getTexture()->getSize().x;
+    const float scaleFactor = slotSide /  (lastItem->sprite.getTexture()->getSize().x * lastItem->sprite.getScale().x);
     lastItem->sprite.scale(scaleFactor, scaleFactor); 
     return true;
 }

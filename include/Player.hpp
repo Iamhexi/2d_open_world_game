@@ -12,8 +12,9 @@ public:
     virtual void handleMovement() override;
     virtual void handlePickingUpItems(std::vector<std::shared_ptr<Item>>& itemsOnMap) override;
     virtual void handleChangingActiveItem() override;
-    void handleStartingConversation(std::vector<std::shared_ptr<NPC>> NPCs);
+    void handleStartingConversation(std::vector<std::shared_ptr<Character>> NPCs);
     void finishConversation();
+    virtual void handleFight(std::shared_ptr<Character> player, std::vector<std::shared_ptr<Character>> otherNPCs) override;
 
 protected:
     virtual void moveUpIfPossible() override;
@@ -23,4 +24,6 @@ protected:
 
 private:
     bool inConversation {false};
+    bool canPickUpItem(const Item& item) const;
+    void startAttackAnimation();
 };

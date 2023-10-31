@@ -32,6 +32,9 @@ make
 - [x] Add path to an individual NPC follow. Some NPCs may just stand.
 - [x] Fix the bug causing the player to stop moving only in the conversation with the first NPC and allowing the player to move in the later ones.
 - [x] Fix the bug allowing an NPC to move during a conversation.
+- [ ] Add the tool usage animation.
+- [ ] Let the player attack the NPCs.
+- [ ] Allow NPCs to attack the player.
 
 ## Gameplay
 

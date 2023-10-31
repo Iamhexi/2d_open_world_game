@@ -48,6 +48,11 @@ void Scene::init() {
         )
     );
 
+    Item farmerHammer(textureManager.get("hammer"));
+
+    // TODO: Adding any item to NPC's inventory causes segmentation fault. Fix it.
+    // (*NPCs.end())->inventory->addItem(farmerHammer);
+
     NPCs.emplace_back(
         std::make_shared<NPC>(
             *window,
@@ -121,17 +126,22 @@ void Scene::run() {
         hero->handlePickingUpItems(itemsOnMap);
         hero->handleChangingActiveItem();
         hero->handleStartingConversation(NPCs);
+        hero->handleFight(hero, NPCs);
     
-        for (auto& NPC: NPCs)
-            NPC->selfManage(itemsOnMap, *hero);
+        for (auto& npc: NPCs) {
+            auto someNPC = static_pointer_cast<NPC>(npc);
+            someNPC->selfManage(NPCs, itemsOnMap, hero);
+        }
 
         window->clear();
         
         for (auto& item: itemsOnMap)
             item->render(*window);
 
-        for (auto& NPC: NPCs)
-            NPC->render();
+        for (auto& npc: NPCs) {
+            auto someNPC = static_pointer_cast<NPC>(npc);
+            someNPC->render();
+        }
 
         hero->render();
 
