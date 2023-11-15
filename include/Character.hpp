@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Inventory.hpp"
+#include "Attacker.hpp"
 
 class NPC;
 
@@ -18,23 +19,18 @@ public:
     void render() const;
     virtual ~Character();
 
-    // Attacking
-    bool isEligibleToAttack(std::vector<std::shared_ptr<Character>> nearbyCharacters) const;
-    sf::Clock attackClock;
-    sf::Time breakBetweenAttacks;
+   
 public:
     Inventory* inventory;
+    Living living;
+    Attacker attacker;
+    sf::Sprite sprite;
     static std::shared_ptr<sf::Texture> notExistingItemTexture;
 
 protected:
     sf::RenderWindow& window;
     sf::Texture& texture;
-    sf::Sprite sprite;
     sf::Sprite activeItemSprite;
-
-    float health = 10;
-    float maxHealth = 10;
-    float damage = 5;
 
     float speed = 3.5f;
     bool canMove = true;

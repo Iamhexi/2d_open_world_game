@@ -11,7 +11,6 @@ NPC::NPC(
 ): Character(window, texture, startingPosition), dialogue(dialogue) {
     path = std::make_shared<Path>(window);
     path->generateRandomPath(10);
-    breakBetweenAttacks = sf::milliseconds(1000);
 }
 
 void NPC::selfManage(
@@ -23,7 +22,7 @@ void NPC::selfManage(
     handleDialogues(*player);
     handlePickingUpItems(itemsOnMap);
     handleChangingActiveItem();
-    handleFight(player, NPCsOnMap);
+    //handleFight(player, NPCsOnMap);
 }
 
 void NPC::startDialogue() {
@@ -60,17 +59,21 @@ void NPC::handleChangingActiveItem()  {
     
 }
 
-void NPC::startAttackAnimation() {
-    activeItemSprite.rotate(10);
-    attackClock.restart();
-}
 
 void NPC::handleFight(std::shared_ptr<Character> player, std::vector<std::shared_ptr<Character>> otherNPCs) {
     auto nearbyCharacters = findNearbyCharacters(player, otherNPCs);
 
-    if (isEligibleToAttack(nearbyCharacters))
-        startAttackAnimation();
-        
+    if (nearbyCharacters.size() > 0)
+        attacker.startAttackAnimation(activeItemSprite);
+
+    for (auto& characterPtr : nearbyCharacters) {
+        characterPtr->attacker.attack(
+            characterPtr->living,
+            characterPtr->sprite.getGlobalBounds(),
+            activeItemSprite
+        );
+    }
+         
 
     // TODO: After making an attack, introduce inability time during which attacks don't occur. Prevent constant attack attacks.
 
@@ -125,7 +128,7 @@ void NPC::moveTowards(const sf::Vector2f& destination) {
 }
 
 void NPC::render() const {
-    if (health > 0) {
+    if (living.isAlive()) {
         dialogue.render();
         Character::render();
     }

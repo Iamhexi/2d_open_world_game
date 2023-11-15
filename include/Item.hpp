@@ -22,11 +22,12 @@ protected:
     unsigned int id;
     sf::Texture& texture;
     std::string name;
-    sf::Sprite sprite;
 
+protected:
     void randomizePosition(sf::FloatRect areaToSpawnItem);
-public:
 
+public:
+    sf::Sprite sprite;
     static unsigned int uniqueId;
 
 };
