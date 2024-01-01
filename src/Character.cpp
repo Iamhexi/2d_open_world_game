@@ -2,6 +2,7 @@
 #include <iostream>
 
 std::shared_ptr<sf::Texture> Character::notExistingItemTexture = nullptr;
+size_t Character::idCounter = 0;
 
 Character::Character(
     sf::RenderWindow& window,
@@ -9,6 +10,7 @@ Character::Character(
     sf::Vector2f startingPosition
 ): window(window), texture(texture)
 {
+    id = idCounter++;
     inventory = new Inventory(window, *(Character::notExistingItemTexture));
     
     setUpSprites(startingPosition, texture);
@@ -125,16 +127,16 @@ Character::~Character() {
 
 std::vector<std::shared_ptr<Character>> Character::findNearbyCharacters(std::shared_ptr<Character> player, std::vector<std::shared_ptr<Character>> otherNPCs) const {
     
-    // TODO: remove this NPC object from otherNPCs vector
     std::vector<std::shared_ptr<Character>> nearbyCharacters;
-    if (player->sprite.getGlobalBounds().intersects( sprite.getGlobalBounds() ))
+    if (player->activeItemSprite.getGlobalBounds().intersects( sprite.getGlobalBounds() ))
         nearbyCharacters.push_back(player);
 
-    for (auto npc: otherNPCs)
-        // if (npc == std::make_shared<Character>(this))
-        //     break;
+    for (auto npc: otherNPCs) {
+        if (*(npc.get()) == *this)
+            break;
         if (npc->sprite.getGlobalBounds().intersects( sprite.getGlobalBounds() ))
             nearbyCharacters.push_back(npc);
+    }
     
     return nearbyCharacters;
 
@@ -142,4 +144,8 @@ std::vector<std::shared_ptr<Character>> Character::findNearbyCharacters(std::sha
 
 bool Character::isEligibleToAttack(std::vector<std::shared_ptr<Character>> nearbyCharacters) const {
     return attackClock.getElapsedTime() > breakBetweenAttacks && nearbyCharacters.size() > 0;
+}
+
+bool Character::operator==(const Character& other) const {
+    return other.id == id;
 }

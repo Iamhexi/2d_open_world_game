@@ -27,6 +27,9 @@ public:
     static std::shared_ptr<sf::Texture> notExistingItemTexture;
 
 protected:
+    size_t id;
+    static size_t idCounter;
+
     sf::RenderWindow& window;
     sf::Texture& texture;
     sf::Sprite sprite;
@@ -34,7 +37,7 @@ protected:
 
     float health = 10;
     float maxHealth = 10;
-    float damage = 5;
+    float damage = 3;
 
     float speed = 3.5f;
     bool canMove = true;
@@ -51,4 +54,5 @@ protected:
     void moveSprites(float x, float y);
     void setUpSprites( sf::Vector2f startingPosition, sf::Texture& texture);
     bool enoughTimePassedSinceLastItemChange() const;
+    bool operator==(const Character& other) const;
 };
