@@ -110,21 +110,24 @@ void Player::moveLeftIfPossible()
 }
 
 void Player::handleFight(std::shared_ptr<Character> player, std::vector<std::shared_ptr<Character>> otherNPCs) {
+    
+    // take damage
+
+
+    // deal
     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
         return;
     
+    attacker.startAttackAnimation(activeItemSprite);
+
     auto nearbyCharacters = findNearbyCharacters(player, otherNPCs);
-    attackClock.restart();
-    
-    // TODO: prevent constant attacks by introducing block time
-    if (isEligibleToAttack(nearbyCharacters)) {
-        
-        startAttackAnimation();
-        for (auto character: nearbyCharacters)
-            character->takeDamage(damage);
 
-    }
-
+    for (auto& characterPtr : nearbyCharacters)
+        attacker.attack(
+            characterPtr->living,
+            characterPtr->sprite.getGlobalBounds(),
+            activeItemSprite
+        );
 
 }
 

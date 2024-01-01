@@ -12,14 +12,14 @@ Character::Character(
 {
     id = idCounter++;
     inventory = new Inventory(window, *(Character::notExistingItemTexture));
-    
+
     setUpSprites(startingPosition, texture);
 
     itemChangeClock.restart();
 }
 
 void Character::takeDamage(float damage) {
-    health = (health - damage > 0) ? health - damage : 0;
+    living.takeDamage(damage);
 }
 
 void Character::setUpSprites( sf::Vector2f startingPosition, sf::Texture& texture) {
@@ -140,6 +140,7 @@ std::vector<std::shared_ptr<Character>> Character::findNearbyCharacters(std::sha
     
     return nearbyCharacters;
 
+<<<<<<< HEAD
 }
 
 bool Character::isEligibleToAttack(std::vector<std::shared_ptr<Character>> nearbyCharacters) const {
@@ -148,4 +149,6 @@ bool Character::isEligibleToAttack(std::vector<std::shared_ptr<Character>> nearb
 
 bool Character::operator==(const Character& other) const {
     return other.id == id;
+=======
+>>>>>>> 8fcdbe8b423124e92203385e04a9348723b64477
 }

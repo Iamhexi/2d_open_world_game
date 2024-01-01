@@ -43,8 +43,7 @@ private:
 
     void moveTowards(const sf::Vector2f& destination);
     bool reachedDestination() const;
-    void startAttackAnimation();
-
+    
 private:
     bool dialogueStarted {false};
     Dialogue& dialogue;
